@@ -73,7 +73,6 @@ public class XRayBlock
 		block.add(new XRayBlock(0, 191, 255, 200, -1, "minecraft:diamond_ore", true));
 		block.add(new XRayBlock(0, 191, 128, 0, -1, "minecraft:coal_ore", true));
 		block.add(new XRayBlock(0, 200, 128, 0, -1, "minecraft:iron_ore", true));
-		block.add(new XRayBlock(0, 200, 128, 0, -1, "nyahuwu", true));
 		
 		Blocks = block;
 	}

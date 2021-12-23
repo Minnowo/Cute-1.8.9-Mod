@@ -8,20 +8,25 @@ import alice.minecraftmod1.uwu;
 import alice.minecraftmod1.proxy.CommonProxy;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -30,7 +35,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-
 
 public class XRay
 {
@@ -50,26 +54,29 @@ public class XRay
 	public static int CooldownTicks = 80;  
 	private static int _cooldownTicks = 0; // the internal counter for the ticks 
 	
-	// setup keybindings 
+	// setup keybindings
+	private KeyBinding _toggleFullbright= new KeyBinding("Toggle Fullbright", Keyboard.KEY_8, Reference.NAME);
 	private KeyBinding _toggleXRayBind = new KeyBinding("Toggle Xray", Keyboard.KEY_0, Reference.NAME); 
 	private KeyBinding _toggleXRayGUIBind = new KeyBinding("Toggle Xray GUI", Keyboard.KEY_9, Reference.NAME);
 	
 	// minecraft instance singleton 
 	private Minecraft mc;
 	
-	@EventHandler()
+	
 	public void preInit(FMLPreInitializationEvent event) 
 	{
-		Keybinds.RegisterKeybind(_toggleXRayBind);
-		Keybinds.RegisterKeybind(_toggleXRayGUIBind);
+		// not sure why but you don't even need to register the keybinds so why do it
+		//Keybinds.RegisterKeybind(_toggleXRayBind);
+		//Keybinds.RegisterKeybind(_toggleXRayGUIBind);
+		//Keybinds.RegisterKeybind(_toggleFullbright);
 	}
 	
-	@EventHandler()
+	
 	public void postIniit(FMLPostInitializationEvent event) 
 	{
 	}
 	
-	@EventHandler()
+	
 	public void init(FMLInitializationEvent event) 
 	{
 		// set our game instance
@@ -87,7 +94,8 @@ public class XRay
 		XRayBlock.removeInvalidBlocks();
 	}
 	
-	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public boolean onTickInGame(TickEvent.ClientTickEvent e) 
 	{
 		if(!this.Enabled)
@@ -110,12 +118,18 @@ public class XRay
 		return true;
 	}
 	
-	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public void keyboardEvent(InputEvent.KeyInputEvent key) 
 	{
 		// if there is a gui shown ignore keyinput 
 		if(this.mc.currentScreen instanceof GuiScreen)
 			return;
+		
+		if(this._toggleFullbright.isPressed()) 
+		{
+			Fullbright.ToggleFullbright();
+		}
 		
 		// xray bind pressed 
 		if(this._toggleXRayBind.isPressed()) 
@@ -135,6 +149,33 @@ public class XRay
 			System.out.println("XRay GUI has been toggled");
 		}
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
+    public void renderWorldLastEvent(RenderWorldLastEvent evt) 
+    {
+        if ((!(this.Enabled)) || (this.mc.theWorld == null))
+        {
+            return;
+        }
+        
+        double doubleX = this.mc.thePlayer.lastTickPosX
+                + (this.mc.thePlayer.posX - this.mc.thePlayer.lastTickPosX)
+                * evt.partialTicks;
+
+        double doubleY = this.mc.thePlayer.lastTickPosY
+                + (this.mc.thePlayer.posY - this.mc.thePlayer.lastTickPosY)
+                * evt.partialTicks;
+
+        double doubleZ = this.mc.thePlayer.lastTickPosZ
+                + (this.mc.thePlayer.posZ - this.mc.thePlayer.lastTickPosZ)
+                * evt.partialTicks;
+
+        GL11.glPushMatrix();
+        GL11.glTranslated(-doubleX, -doubleY, -doubleZ);
+        GL11.glCallList(DisplayListId);
+        GL11.glPopMatrix();
+    }
 	
 	private void compileDL() 
 	{
@@ -245,33 +286,6 @@ public class XRay
 
         GL11.glVertex3f(x + 1, y, z + 1);
         GL11.glVertex3f(x + 1, y + 1, z + 1);
-    }
-	
-	
-    @SubscribeEvent
-    public void renderWorldLastEvent(RenderWorldLastEvent evt) 
-    {
-        if ((!(this.Enabled)) || (this.mc.theWorld == null))
-        {
-            return;
-        }
-        
-        double doubleX = this.mc.thePlayer.lastTickPosX
-                + (this.mc.thePlayer.posX - this.mc.thePlayer.lastTickPosX)
-                * evt.partialTicks;
-
-        double doubleY = this.mc.thePlayer.lastTickPosY
-                + (this.mc.thePlayer.posY - this.mc.thePlayer.lastTickPosY)
-                * evt.partialTicks;
-
-        double doubleZ = this.mc.thePlayer.lastTickPosZ
-                + (this.mc.thePlayer.posZ - this.mc.thePlayer.lastTickPosZ)
-                * evt.partialTicks;
-
-        GL11.glPushMatrix();
-        GL11.glTranslated(-doubleX, -doubleY, -doubleZ);
-        GL11.glCallList(DisplayListId);
-        GL11.glPopMatrix();
     }
 }
 
