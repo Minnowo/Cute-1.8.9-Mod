@@ -1,0 +1,16 @@
+[
+{
+  "modid": "um1",
+  "name": "uwu mod 1",
+  "description": "sample mod because i have no idea what i'm doing",
+  "version": "0.0.1",
+  "mcversion": "1.8.9",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["AliceNyaa"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
