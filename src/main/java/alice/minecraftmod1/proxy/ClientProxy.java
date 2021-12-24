@@ -18,25 +18,18 @@ public class ClientProxy extends CommonProxy
 	@Override
     public void preInit(FMLPreInitializationEvent e) 
 	{
-		BlockESP.instance.preInit(e);
-		EntityESP.instance.preInit(e);
         super.preInit(e);
     }
 
     @Override
     public void init(FMLInitializationEvent e) 
     {
-    	BlockESP.instance.init(e);
-    	EntityESP.instance.init(e);
-    	ESP.instance.init(e);
         super.init(e);
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent e) 
     {
-    	BlockESP.instance.postIniit(e);
-    	EntityESP.instance.postIniit(e);
         super.postInit(e);
     }
 }

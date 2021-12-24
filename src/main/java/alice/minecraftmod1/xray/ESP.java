@@ -51,10 +51,10 @@ public class ESP
 	{
 		// set our game instance
 		this.mc = Minecraft.getMinecraft();
-		
-		// register with event bus so we can register listeners 
-		FMLCommonHandler.instance().bus().register(this);
-		MinecraftForge.EVENT_BUS.register(this);
+//		
+//		// register with event bus so we can register listeners 
+//		FMLCommonHandler.instance().bus().register(this);
+//		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	@SubscribeEvent
@@ -63,7 +63,7 @@ public class ESP
         if (Util.nullCheck() || Util.checkRender())
             return;
 		
-        ESPUtil.beginDrawHitbox(2f);
+        ESPUtil.beginRenderHitbox(2f);
         
         for(Object entity : this.mc.theWorld.loadedEntityList) 
 		{
@@ -72,10 +72,10 @@ public class ESP
 			if(e instanceof EntityPlayer)
 				continue;
 			
-			ESPUtil.drawEntityHitbox(e);
+			// ESPUtil.renderEntityHitbox(e);
 		}
         
-        ESPUtil.endDrawHitbox();
+        ESPUtil.endRenderHitbox();
         		
     }
 }

@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import org.lwjgl.input.Keyboard;
 
 import alice.minecraftmod1.Reference;
+import alice.minecraftmod1.setting.Setting;
 import alice.minecraftmod1.util.IMixin;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
@@ -17,18 +18,19 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class Module implements IMixin
 {
-	private String     _name;
-	private Category   _category;
-	private String     _description;
-	private KeyBinding _key;
+	protected String     _name;
+	protected Category   _category;
+	protected String     _description;
+	protected KeyBinding _key;
 
-	private boolean _enabled;
-	private boolean _opened;
-	private boolean _drawn;
-	public boolean  _isKeyDown = false;
-	private boolean _isBinding;
-	public float    _remainingAnimation = 0.0f;
+	protected boolean _enabled;
+	protected boolean _opened;
+	protected boolean _drawn;
+	protected boolean  _isKeyDown = false;
+	protected boolean _isBinding;
+	protected float    _remainingAnimation = 0.0f;
 
+	protected List<Setting> _settingsList = new ArrayList();
 
 	public Module(String name, Category category, @Nullable String description) 
 	{
@@ -50,9 +52,14 @@ public class Module implements IMixin
 
 	}
 
+	public List<Setting> getSettings()
+	{
+		return this._settingsList;
+	}
+	
 	public void addSetting(Setting s) 
 	{
-		settingsList.add(s);
+		this._settingsList.add(s);
 	}
 
 	public boolean isEnabled() 
@@ -200,14 +207,10 @@ public class Module implements IMixin
 		return "";
 	}
 
-//	public boolean hasSettings() 
-//	{
-//		return this.settingsList.size() > 0;
-//	}
-
-//	public List<Setting> getSettings(){
-//		return this.settingsList;
-//	}
+	public boolean hasSettings() 
+	{
+		return this._settingsList.size() > 0;
+	}
 
 	public void toggleState() 
 	{

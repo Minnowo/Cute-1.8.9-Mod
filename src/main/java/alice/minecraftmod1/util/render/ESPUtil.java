@@ -2,12 +2,15 @@ package alice.minecraftmod1.util.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.EXTPackedDepthStencil;
 import org.lwjgl.opengl.GL11;
+
+import alice.minecraftmod1.module.modules.render.VirtualBlock;
 
 import java.awt.*;
 
@@ -17,20 +20,20 @@ public class ESPUtil
 {
 
 	
-	public static void beginDrawHitbox(float lineWidth, Color c) 
+	public static void beginRenderHitbox(float lineWidth, Color c) 
 	{
-		beginDrawHitbox();
+		beginRenderHitbox();
 		GL11.glLineWidth(lineWidth);
 		ESPUtil.setColor(c);
 	}
 	
-	public static void beginDrawHitbox(float lineWidth) 
+	public static void beginRenderHitbox(float lineWidth) 
 	{
-		beginDrawHitbox();
+		beginRenderHitbox();
 		GL11.glLineWidth(lineWidth);
 	}
 	
-	public static void beginDrawHitbox() 
+	public static void beginRenderHitbox() 
 	{
 		GL11.glPushMatrix();
         
@@ -44,7 +47,7 @@ public class ESPUtil
         GL11.glDepthMask(false);        
 	}
 	
-	public static void endDrawHitbox() 
+	public static void endRenderHitbox() 
 	{
 		GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GL11.glDisable(GL11.GL_BLEND);
@@ -56,7 +59,7 @@ public class ESPUtil
         GL11.glPopMatrix();	
 	}
 	
-    public static void drawEntityHitbox(Entity e) 
+    public static void renderEntityHitbox(Entity e) 
     {
     	double renderPosX = Minecraft.getMinecraft().getRenderManager().viewerPosX;
 		double renderPosY = Minecraft.getMinecraft().getRenderManager().viewerPosY;
@@ -107,6 +110,48 @@ public class ESPUtil
 		GL11.glEnd();
     }
 
+    
+    public static void renderBlock(int x, int y, int z, VirtualBlock block) 
+    {
+    	GL11.glColor4ub((byte) block.r, (byte) block.g, (byte) block.b, (byte) block.a);
+
+        GL11.glVertex3f(x, y, z);
+        GL11.glVertex3f(x + 1, y, z);
+
+        GL11.glVertex3f(x + 1, y, z);
+        GL11.glVertex3f(x + 1, y, z + 1);
+
+        GL11.glVertex3f(x, y, z);
+        GL11.glVertex3f(x, y, z + 1);
+
+        GL11.glVertex3f(x, y, z + 1);
+        GL11.glVertex3f(x + 1, y, z + 1);
+
+        GL11.glVertex3f(x, y + 1, z);
+        GL11.glVertex3f(x + 1, y + 1, z);
+
+        GL11.glVertex3f(x + 1, y + 1, z);
+        GL11.glVertex3f(x + 1, y + 1, z + 1);
+
+        GL11.glVertex3f(x, y + 1, z);
+        GL11.glVertex3f(x, y + 1, z + 1);
+
+        GL11.glVertex3f(x, y + 1, z + 1);
+        GL11.glVertex3f(x + 1, y + 1, z + 1);
+
+        GL11.glVertex3f(x, y, z);
+        GL11.glVertex3f(x, y + 1, z);
+
+        GL11.glVertex3f(x, y, z + 1);
+        GL11.glVertex3f(x, y + 1, z + 1);
+
+        GL11.glVertex3f(x + 1, y, z);
+        GL11.glVertex3f(x + 1, y + 1, z);
+
+        GL11.glVertex3f(x + 1, y, z + 1);
+        GL11.glVertex3f(x + 1, y + 1, z + 1);
+    }
+    
     
     public static void setColor(Color c) 
     {
