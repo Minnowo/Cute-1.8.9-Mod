@@ -31,7 +31,7 @@ public class Fullbright extends Module
 	{
 		if(Util.nullCheck())
 			return;
-		
+		this.Mode.setMode(1);
 		// 0 for gamma
 		if(this.Mode.getValue() == 0) 
 		{

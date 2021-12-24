@@ -81,16 +81,7 @@ public class BlockESP extends Module
 		GL11.glDeleteLists(DisplayListId, 1);
 		MinecraftForge.EVENT_BUS.unregister(this);
 	}
-	
-	@Override
-	public void onUpdate() 
-	{
-		if(Util.nullCheck())
-			return;
-		
-//		this._cooldownTicks = 0;
-//		this.compileDL();
-	}
+
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)

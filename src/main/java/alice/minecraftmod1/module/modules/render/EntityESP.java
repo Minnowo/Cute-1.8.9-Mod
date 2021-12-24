@@ -47,6 +47,7 @@ public class EntityESP extends Module
 
     public static Slider lineWidth = new Slider("Line Width", 0.0D, 2.5D, 5.0D, 1);
     
+    
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public void onRenderWorld(RenderWorldLastEvent event) 
@@ -54,10 +55,14 @@ public class EntityESP extends Module
 		if(Util.nullCheck() || Util.checkRender())
 			return;
 		
-		ESPUtil.beginRenderHitbox(2f);
+		ESPUtil.beginRenderHitbox((float)lineWidth.getValue());
 		
         for(Entity entity : this.mc.theWorld.loadedEntityList) 
 		{
+        	// to add 
+        	// support for slimes / ender dragon 
+        	// check other mobs which might not get a hitbox shown
+        	
         	if(entity instanceof EntityPlayer) 
         	{
         		if(players.getValue() && entity.getName() != this.mc.thePlayer.getName()) 
