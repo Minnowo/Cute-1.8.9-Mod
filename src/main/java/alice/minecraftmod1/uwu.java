@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import alice.minecraftmod1.proxy.*;
-import alice.minecraftmod1.xray.XRay;
+import alice.minecraftmod1.xray.BlockESP;
 
 @Mod
 (
