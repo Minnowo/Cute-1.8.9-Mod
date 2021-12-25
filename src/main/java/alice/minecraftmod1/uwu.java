@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.input.Keyboard;
 
+import alice.minecraftmod1.managers.ConfigManager;
 import alice.minecraftmod1.managers.ModuleManager;
 import alice.minecraftmod1.module.Module;
 import alice.minecraftmod1.module.modules.render.VirtualBlock;
@@ -51,15 +52,15 @@ public class uwu
 	{
 		proxy.init(event);
 		proxy.registerRenders();	
+		VirtualBlock.setStandardList();
 		moduleManager = new ModuleManager();
 		
-		VirtualBlock.setStandardList();
 		
-		moduleManager.getModules().get(0).getKeybind().setKeyCode(Keyboard.KEY_1);
-		moduleManager.getModules().get(1).getKeybind().setKeyCode(Keyboard.KEY_2);
-		moduleManager.getModules().get(2).getKeybind().setKeyCode(Keyboard.KEY_3);
+
+//        moduleManager.getModules().get(0).getKeybind().setKeyCode(Keyboard.KEY_1);
+//		moduleManager.getModules().get(1).getKeybind().setKeyCode(Keyboard.KEY_2);
+//		moduleManager.getModules().get(2).getKeybind().setKeyCode(Keyboard.KEY_3);
 		
-		System.out.println(Reference.NAME + " init");
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -67,6 +68,18 @@ public class uwu
 	public static void postInit(FMLPostInitializationEvent event) 
 	{
 		proxy.postInit(event);
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+			    ConfigManager.saveConfig();
+			    
+			}
+		}));
+		
+		ConfigManager.loadConfig();
 		System.out.println("post init done");
 	}
 }

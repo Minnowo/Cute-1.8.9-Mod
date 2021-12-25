@@ -58,13 +58,18 @@ public class BlockESP extends Module
         addSetting(SearchRadius);
     }
 
+	@Override
+	public boolean nullCheck() 
+	{
+		return mc.thePlayer == null ||
+	    	   mc.theWorld == null ||
+	    	   mc.getRenderManager() == null || 
+			   mc.getRenderManager().options == null;
+	}
 	
 	@Override
 	public void onEnable() 
 	{
-		if(Util.nullCheck())
-			return;
-		
 		this.DisplayListId = GL11.glGenLists(GL11.GL_TRIANGLE_STRIP) + 3;
 		
 		MinecraftForge.EVENT_BUS.register(this);
@@ -112,7 +117,7 @@ public class BlockESP extends Module
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
     public void renderWorldLastEvent(RenderWorldLastEvent evt) 
     {
-        if (!this._enabled || Util.nullCheck())
+        if (!this._enabled || nullCheck())
         {
             return;
         }
@@ -137,7 +142,7 @@ public class BlockESP extends Module
 	
 	private void compileDL() 
 	{
-		if(Util.nullCheck())
+		if(nullCheck())
 			return;
 		
 		// i have no idea what this is but i changed all the numbers to make more sense at least

@@ -47,6 +47,12 @@ public class Module implements IMixin
 		this.setup();
 	}
 
+	public boolean nullCheck() 
+	{
+		return mc.theWorld == null || 
+			   mc.thePlayer == null;
+	}
+	
 	public void setup() 
 	{
 

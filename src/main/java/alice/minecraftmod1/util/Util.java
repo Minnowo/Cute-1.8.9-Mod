@@ -4,6 +4,13 @@ import net.minecraft.client.Minecraft;
 
 public class Util
 {
+	private static String playerName = Minecraft.getMinecraft().thePlayer.getName();
+	
+	public static String playerName() 
+	{
+		return playerName;
+	}
+	
 	public static boolean nullCheck() 
 	{
 		return Minecraft.getMinecraft().theWorld == null || 
