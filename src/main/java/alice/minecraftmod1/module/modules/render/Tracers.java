@@ -3,50 +3,36 @@ package alice.minecraftmod1.module.modules.render;
 import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelZombie;
+import org.lwjgl.opengl.GL32;
+
 import alice.minecraftmod1.module.Module;
 import alice.minecraftmod1.setting.checkbox.Checkbox;
 import alice.minecraftmod1.setting.color.ColorPicker;
-import alice.minecraftmod1.setting.mode.Mode;
 import alice.minecraftmod1.setting.slider.Slider;
-import alice.minecraftmod1.util.Util;
 import alice.minecraftmod1.util.render.ESPUtil;
 import alice.minecraftmod1.util.world.EntityUtil;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntityGolem;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.passive.EntityVillager;
-
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.passive.EntityAmbientCreature;
-
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityESP extends Module
+public class Tracers extends Module
 {
-	public EntityESP() 
+	public Tracers() 
 	{
-		super("Entity ESP", Category.RENDER, "Highlights entities");
+		super("Tracers", Category.RENDER, "Draws lines to entities");
 	}
 	
-	public static Mode mode = new Mode("Mode", "Outline", "Glow", "2D", "CS:GO", "Wireframe");
-
-    public static Checkbox players = new Checkbox("Players", true);
+	public static Checkbox players = new Checkbox("Players", true);
     public static ColorPicker playerPicker = new ColorPicker(players, "Player Picker", new Color(215, 46, 46));
 
     public static Checkbox animals = new Checkbox("Animals", true);
@@ -65,37 +51,68 @@ public class EntityESP extends Module
     public static ColorPicker itemsPicker = new ColorPicker(items, "Item Picker", new Color(199, 196, 19));
 
     public static Slider lineWidth = new Slider("Line Width", 0.0D, 2.5D, 5.0D, 1);
-    
-    @Override
-    public boolean nullCheck() 
-    {
-    	return mc.thePlayer == null ||
-    		   mc.theWorld == null ||
-    		   mc.getRenderManager() == null || 
+
+	@Override
+	public boolean nullCheck() 
+	{
+		return mc.thePlayer == null ||
+	    	   mc.theWorld == null ||
+	    	   mc.getRenderManager() == null || 
 			   mc.getRenderManager().options == null;
-    }
-    
+	}
+
+	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public void onRenderWorld(RenderWorldLastEvent event) 
 	{
-		if(nullCheck())
+		if (nullCheck())
 			return;
-		
-		ESPUtil.beginRenderHitbox((float)lineWidth.getValue());
 
-        for(Entity entity : this.mc.theWorld.loadedEntityList) 
+		Vec3 vec = mc.thePlayer.getPositionVector();
+
+		double mx = vec.xCoord;
+		double mz = vec.zCoord;
+		double my = vec.yCoord + mc.thePlayer.getEyeHeight() - 0.35;
+
+		if (mc.getRenderManager().options.thirdPersonView == 0) 
 		{
-        	// to add 
-        	// support for slimes / ender dragon 
-        	// check other mobs which might not get a hitbox shown
- 
-        	if(entity instanceof EntityPlayer) 
+			double drawBeforeCameraDist = 100;
+			double pitch = ((mc.thePlayer.rotationPitch + 90) * Math.PI) / 180;
+			double yaw = ((mc.thePlayer.rotationYaw + 90) * Math.PI) / 180;
+			mx += Math.sin(pitch) * Math.cos(yaw) * drawBeforeCameraDist;
+			mz += Math.sin(pitch) * Math.sin(yaw) * drawBeforeCameraDist;
+			my += Math.cos(pitch) * drawBeforeCameraDist;
+		}
+
+
+		GL11.glPushMatrix();
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glDepthMask(false);
+
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		GL11.glEnable(GL32.GL_DEPTH_CLAMP);
+		
+		GL11.glLineWidth(2f);
+		
+		
+		GL11.glTranslated(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ);
+		GL11.glBegin(GL11.GL_LINES);
+		
+		
+		// main draw loop
+		for (Entity entity : mc.theWorld.loadedEntityList) 
+		{
+			if(entity instanceof EntityPlayer) 
         	{
         		if(players.getValue() && entity.getName() != this.mc.thePlayer.getName()) 
         		{
-        			ESPUtil.setColor(playerPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			ESPUtil.renderTracer(mx, my, mz, entity, 100, 45, playerPicker.getColor());
         		}
         		continue;
         	}
@@ -104,8 +121,7 @@ public class EntityESP extends Module
         	{
         		if(items.getValue()) 
         		{
-        			ESPUtil.setColor(itemsPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			ESPUtil.renderTracer(mx, my, mz, entity, 100, 45, itemsPicker.getColor());
         		}
         		continue;
         	}
@@ -114,8 +130,7 @@ public class EntityESP extends Module
         	{
         		if(mobs.getValue()) 
         		{
-        			ESPUtil.setColor(mobsPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			ESPUtil.renderTracer(mx, my, mz, entity, 100, 45, mobsPicker.getColor());
         		}
         		continue;
         	}
@@ -124,8 +139,7 @@ public class EntityESP extends Module
         	{
         		if(animals.getValue()) 
         		{
-        			ESPUtil.setColor(animalPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			ESPUtil.renderTracer(mx, my, mz, entity, 100, 45, animalPicker.getColor());
         		}
         		continue;
         	}
@@ -134,8 +148,7 @@ public class EntityESP extends Module
         	{
         		if(neutral.getValue()) 
         		{
-        			ESPUtil.setColor(neutralPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			ESPUtil.renderTracer(mx, my, mz, entity, 100, 45, neutralPicker.getColor());
         		}
         		continue;
         	}        	
@@ -144,12 +157,21 @@ public class EntityESP extends Module
         	{
         		if(vehicles.getValue()) 
         		{
-        			ESPUtil.setColor(vehiclesPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			ESPUtil.renderTracer(mx, my, mz, entity, 100, 45, vehiclesPicker.getColor());
         		}
-        	}
+        	}			
 		}
-        
-        ESPUtil.endRenderHitbox();
-    }
+
+		GL11.glEnd();
+		GL11.glDisable(GL32.GL_DEPTH_CLAMP);
+		GL11.glDisable(GL11.GL_LINE_SMOOTH);
+		
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		GL11.glDisable(GL11.GL_BLEND);
+		
+		GL11.glDepthMask(true);
+		GL11.glPopMatrix();
+	}
 }

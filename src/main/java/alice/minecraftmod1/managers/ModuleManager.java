@@ -29,7 +29,8 @@ public class ModuleManager implements IMixin
 			(
 				new BlockESP(),
 				new EntityESP(),
-				new Fullbright()
+				new Fullbright(),
+				new Tracers()
 			);
 	
 	public static List<Module> getModules()

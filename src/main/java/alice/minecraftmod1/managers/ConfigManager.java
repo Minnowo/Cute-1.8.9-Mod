@@ -779,7 +779,8 @@ public class ConfigManager
     }
 
     public static void saveDrawn() {
-        try {
+        try 
+        {
             File binds = new File(config.getAbsolutePath(), "Drawn.txt");
             BufferedWriter bw = new BufferedWriter(new FileWriter(binds));
             for (Module m : ModuleManager.getModules()) {
@@ -788,7 +789,11 @@ public class ConfigManager
             }
 
             bw.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } 
+        catch (Exception e) 
+        { 
+        	e.printStackTrace(); 
+        	}
     }
 
     public static void loadDrawn() 

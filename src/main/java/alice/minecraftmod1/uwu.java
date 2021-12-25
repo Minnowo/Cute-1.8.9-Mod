@@ -60,6 +60,7 @@ public class uwu
 //        moduleManager.getModules().get(0).getKeybind().setKeyCode(Keyboard.KEY_1);
 //		moduleManager.getModules().get(1).getKeybind().setKeyCode(Keyboard.KEY_2);
 //		moduleManager.getModules().get(2).getKeybind().setKeyCode(Keyboard.KEY_3);
+		moduleManager.getModules().get(3).getKeybind().setKeyCode(Keyboard.KEY_4);
 		
 	}
 	
