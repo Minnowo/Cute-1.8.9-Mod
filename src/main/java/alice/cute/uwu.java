@@ -56,9 +56,8 @@ public class uwu
 	@EventHandler()
 	public void init(FMLInitializationEvent event) 
 	{
-		MinecraftForge.EVENT_BUS.register(this);
 		proxy.init(event);
-		VirtualBlock.setStandardList();
+//		VirtualBlock.setStandardList();
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
 		{

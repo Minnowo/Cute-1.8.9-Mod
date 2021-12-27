@@ -3,6 +3,7 @@ package alice.cute.managers;
 import com.google.gson.*;
 
 import alice.cute.module.Module;
+import alice.cute.module.modules.render.VirtualBlock;
 import alice.cute.setting.Setting;
 import alice.cute.setting.SubSetting;
 import alice.cute.setting.checkbox.*;
@@ -59,6 +60,7 @@ public class ConfigManagerJSON
         try 
         {
             saveModules();
+            saveBlockList();
 //            saveGUI();
 //            saveHUD();
 //            saveFriends();
@@ -75,7 +77,9 @@ public class ConfigManagerJSON
         try 
         {
             createDirectory();
+            LoadBlockList();
             loadModules();
+            
 //            loadGUI();
 //            loadHUD();
 //            loadFriends();
@@ -436,7 +440,59 @@ public class ConfigManagerJSON
             module.setKeyCode(moduleObject.get("Bind").getAsInt());
         }
     }
+    
+    public static void saveBlockList() throws IOException
+    {
+    	registerFiles("Virtual Block List", "modules");
+        OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream("cute/modules/Virtual Block List.json"), StandardCharsets.UTF_8);
 
+        JsonArray moduleObject = new JsonArray();
+        
+        for(VirtualBlock b : VirtualBlock.Blocks) 
+        {
+        	JsonObject jo = new JsonObject();
+        	jo.add("Id",  new JsonPrimitive(b.id));
+        	jo.add("Red",  new JsonPrimitive(b.r));
+        	jo.add("Green",  new JsonPrimitive(b.g));
+        	jo.add("Blue",  new JsonPrimitive(b.b));
+        	jo.add("Alpha",  new JsonPrimitive(b.a));
+        	jo.add("Meta",  new JsonPrimitive(b.meta));
+        	jo.add("Enabled",  new JsonPrimitive(b.enabled));
+        	
+        	moduleObject.add(jo);
+        }
+        
+        String jsonString = gson.toJson(new JsonParser().parse(moduleObject.toString()));
+        fileOutputStreamWriter.write(jsonString);
+        fileOutputStreamWriter.close();
+    }
+
+    
+    public static void LoadBlockList() throws IOException 
+    {
+    	if (!Files.exists(Paths.get("cute/modules/Virtual Block List.json")))
+            return;
+
+        InputStream inputStream = Files.newInputStream(Paths.get("cute/modules/Virtual Block List.json"));
+        JsonArray blockListObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonArray();
+
+        for (int i = 0; i < blockListObject.size(); i++) 
+        {
+        	JsonObject jsonObj = blockListObject.get(i).getAsJsonObject();
+        	
+        	VirtualBlock vb = new VirtualBlock();
+        	
+        	vb.id = jsonObj.get("Id").getAsString();
+            vb.r = jsonObj.get("Red").getAsInt();
+            vb.g = jsonObj.get("Green").getAsInt();
+            vb.b = jsonObj.get("Blue").getAsInt();
+            vb.a = jsonObj.get("Alpha").getAsInt();
+            vb.meta = jsonObj.get("Meta").getAsInt();
+            vb.enabled = jsonObj.get("Enabled").getAsBoolean();
+            
+            VirtualBlock.registerBlock(vb);
+        }
+    }
 //    public static void saveGUI() throws IOException 
 //    {
 //        registerFiles("GUI", "gui");

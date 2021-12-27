@@ -43,6 +43,51 @@ public class VirtualBlock
 		this.location = new ResourceLocation(id);
 	}
 	
+	private static void insertBlock(VirtualBlock vb) 
+	{
+		for(int i = 0; i < VirtualBlock.Blocks.size(); i++) 
+		{
+			if(VirtualBlock.Blocks.get(i).id == vb.id) 
+			{
+				VirtualBlock.Blocks.set(i, vb);
+				return;
+			}
+		}
+		
+		VirtualBlock.Blocks.add(vb);
+	}
+	
+	public static boolean registerBlock(VirtualBlock vb) 
+	{
+		vb.location = new ResourceLocation(vb.id);
+
+		if (Block.blockRegistry.containsKey(vb.location)) 
+		{
+			vb.block = (Block)Block.blockRegistry.getObject(vb.location);
+			insertBlock(vb);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	public static void removeInvalidBlocks() 
+	{
+		for (int i = 0; i < Blocks.size(); ++i) 
+		{
+			VirtualBlock block = Blocks.get(i);
+
+			if (Block.blockRegistry.containsKey(block.location)) 
+			{
+				block.block = (Block)Block.blockRegistry.getObject(block.location);
+				continue;
+			}
+			
+			Blocks.remove(block);
+		}
+	}
+	
 	public static VirtualBlock FromString(String str) 
 	{
 		VirtualBlock result = new VirtualBlock();
@@ -61,36 +106,6 @@ public class VirtualBlock
 		return result;
 	}
 	
-	public static void setStandardList() 
-	{
-		ArrayList block = new ArrayList();
-		block.add(new VirtualBlock(0, 0, 128, 200, -1, "minecraft:lapis_ore", true));
-		block.add(new VirtualBlock(255, 0, 0, 200, -1, "minecraft:redstone_ore", true));
-		block.add(new VirtualBlock(255, 255, 0, 200, -1, "minecraft:gold_ore", true));
-		block.add(new VirtualBlock(0, 255, 0, 200, -1, "minecraft:emerald_ore", true));
-		block.add(new VirtualBlock(0, 191, 255, 200, -1, "minecraft:diamond_ore", true));
-		block.add(new VirtualBlock(0, 191, 128, 0, -1, "minecraft:coal_ore", true));
-		block.add(new VirtualBlock(0, 200, 128, 0, -1, "minecraft:iron_ore", true));
-		
-		Blocks = block;
-		removeInvalidBlocks();
-	}
-	
-	public static void removeInvalidBlocks() 
-	{
-		for (int i = 0; i < Blocks.size(); ++i) 
-		{
-			VirtualBlock block = Blocks.get(i);
-
-			if (Block.blockRegistry.containsKey(block.location)) 
-			{
-				block.block = (Block)Block.blockRegistry.getObject(block.location);
-				continue;
-			}
-			
-			Blocks.remove(block);
-		}
-	}
 	
 	public String toString() 
 	{

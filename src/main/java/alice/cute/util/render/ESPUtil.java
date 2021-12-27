@@ -118,10 +118,18 @@ public class ESPUtil
 		GL11.glEnd();
     }
 
-    
     public static void renderBlock(int x, int y, int z, VirtualBlock block) 
     {
-    	GL11.glColor4ub((byte) block.r, (byte) block.g, (byte) block.b, (byte) block.a);
+    	renderBlock(x, y, z, new Color(block.r, block.g, block.b, block.a));
+    }
+    
+    public static void renderBlock(int x, int y, int z, Color color) 
+    {
+    	GL11.glColor4ub(
+    			(byte) color.getRed(), 
+    			(byte) color.getGreen(), 
+    			(byte) color.getBlue(), 
+    			(byte) color.getAlpha());
 
         GL11.glVertex3f(x, y, z);
         GL11.glVertex3f(x + 1, y, z);
