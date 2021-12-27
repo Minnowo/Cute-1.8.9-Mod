@@ -10,8 +10,10 @@ import org.lwjgl.util.glu.Cylinder;
 
 import alice.cute.module.Module;
 import alice.cute.module.Module.Category;
+import alice.cute.setting.checkbox.Checkbox;
+import alice.cute.setting.color.ColorPicker;
+import alice.cute.setting.slider.Slider;
 import alice.cute.util.Util;
-import alice.cute.util.physics.ArrowPhysics;
 import alice.cute.util.render.ESPUtil;
 import alice.cute.util.world.EntityUtil;
 import net.minecraft.block.Block;
@@ -56,7 +58,9 @@ public class ProjectileTracer extends Module
 		super("Projectile Tracer", Category.RENDER, "Shows projectile trajectories");
 	}
 	
-	public boolean renderTargetBlock = true;
+	public static Checkbox renderTargetBlock = new Checkbox("Highlight Target Block", true);
+    public static ColorPicker tracerColorPicker = new ColorPicker(renderTargetBlock, "Tracer Color", new Color(255,255,255));
+	public static Slider lineWidth = new Slider("Line Width", 0.0D, 2.5D, 5.0D, 1);
 	
 	@Override
 	public boolean nullCheck() 
@@ -158,7 +162,7 @@ public class ProjectileTracer extends Module
 		MovingObjectPosition landingPosition = null;
 		boolean hasLanded = false;
 		boolean hitEntity = false;
-		Color tracerColor = new Color(255,255,255,255);
+		Color tracerColor = tracerColorPicker.getColor();
 		
 		// Drawing
 		Tessellator tessellator = Tessellator.getInstance();
@@ -174,7 +178,7 @@ public class ProjectileTracer extends Module
 		GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
 		
 		ESPUtil.setColor(tracerColor);
-		GL11.glLineWidth(2.0F);
+		GL11.glLineWidth((float)lineWidth.getValue());
 		
 		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
 		
@@ -304,7 +308,7 @@ public class ProjectileTracer extends Module
 		GL11.glPushMatrix();
 		
 		
-		if(!hitEntity && renderTargetBlock && landingPosition != null) 
+		if(!hitEntity && renderTargetBlock.getValue() && landingPosition != null) 
 		{
 			// translate graphics for the block render
 			GL11.glTranslated(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ);
