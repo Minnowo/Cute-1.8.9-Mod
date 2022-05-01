@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 
 import alice.cute.module.*;
 import alice.cute.module.Module.Category;
+import alice.cute.module.misc.AntiPotion;
 import alice.cute.module.modules.render.*;
 import alice.cute.util.IMixin;
 import alice.cute.util.Util;
@@ -25,12 +26,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.Int;
 
-import alice.cute.util.physics.*;
 
 public class ModuleManager implements IMixin
-{
-	public static ArrowPhysics arrow = new ArrowPhysics();
-	
+{	
 	public ModuleManager() 
 	{
 		MinecraftForge.EVENT_BUS.register(this);
@@ -42,7 +40,10 @@ public class ModuleManager implements IMixin
 					new EntityESP(),
 					new Fullbright(),
 					new Tracers(),
-					new ProjectileTracer()
+					new ProjectileTracer(),
+					new NoRender(),
+					
+					new AntiPotion()
 				);
 	
 	public static List<Module> getModules()
@@ -80,33 +81,6 @@ public class ModuleManager implements IMixin
 	public void onTick(TickEvent.ClientTickEvent event) 
 	{
 		ModuleManager.onUpdate();
-		
-		if(mc.thePlayer == null || mc.theWorld == null)
-			return;
-		
-//		ItemStack item = mc.thePlayer.getHeldItem();
-////		
-//		if(item == null)
-//			return;
-////		
-//		if(item.getItem() instanceof ItemBow) 
-//		{
-//			ItemBow i = (ItemBow)item.getItem();
-//			String message = "";
-//			
-//			
-//			message += "item in use time: " + mc.thePlayer.getItemInUseDuration();
-////			message += "\nitem use action: " + i.getItemUseAction(item);
-//			message += "\narrow launch speed: " + arrow.launchSpeed(mc.thePlayer);
-////			message += "\nitem max use duration: " + Items.bow.getMaxItemUseDuration(item); 
-//			
-//			
-//			Util.sendRawClientMessage(message);
-//		}
-		
-		// Util.sendRawClientMessage(Integer.toString(mc.thePlayer.arrowHitTimer));
-//		ModuleManager.keyListen();
-		// ThemeColor.updateColors();
 	}
 	
 	@SideOnly(Side.CLIENT)

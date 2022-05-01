@@ -22,6 +22,7 @@ import alice.cute.util.Util;
 
 @Mod
 (
+		clientSideOnly = true,
 		modid = Reference.MODID, 
 		name = Reference.NAME, 
 		version = Reference.VERSION

@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.awt.Color;
 
-
 public class ConfigManagerJSON 
 {
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();

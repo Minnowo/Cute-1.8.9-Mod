@@ -13,6 +13,8 @@ import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.EXTPackedDepthStencil;
 import org.lwjgl.opengl.GL11;
@@ -166,6 +168,27 @@ public class ESPUtil
 
         GL11.glVertex3f(x + 1, y, z + 1);
         GL11.glVertex3f(x + 1, y + 1, z + 1);
+    }
+    
+    public static void renderTracerFromPlayer(Entity entity, double hDistanceMax, double vDistanceMax, Color c) 
+    {
+    	Vec3 vec = mc.thePlayer.getPositionVector();
+
+		double mx = vec.xCoord;
+		double mz = vec.zCoord;
+		double my = vec.yCoord + mc.thePlayer.getEyeHeight() - 0.35;
+
+		if (mc.getRenderManager().options.thirdPersonView == 0) 
+		{
+			double drawBeforeCameraDist = 100;
+			double pitch = ((mc.thePlayer.rotationPitch + 90) * Math.PI) / 180;
+			double yaw = ((mc.thePlayer.rotationYaw + 90) * Math.PI) / 180;
+			mx += Math.sin(pitch) * Math.cos(yaw) * drawBeforeCameraDist;
+			mz += Math.sin(pitch) * Math.sin(yaw) * drawBeforeCameraDist;
+			my += Math.cos(pitch) * drawBeforeCameraDist;
+		}
+		
+		renderTracer(mx, my, mz, entity, hDistanceMax, vDistanceMax, c);
     }
     
     public static void renderTracer(double fx, double fy, double fz, Entity entity, double hDistanceMax, double vDistanceMax, Color c)
