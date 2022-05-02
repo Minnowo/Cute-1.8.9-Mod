@@ -71,6 +71,9 @@ public class uwu
 		
 		moduleManager = new ModuleManager();
 		ConfigManagerJSON.loadConfig();
+		
+//		entity esp 
+//		moduleManager.modules.get(1).setKeyCode(Keyboard.KEY_1);
 	}
 	
 	@SideOnly(Side.CLIENT)

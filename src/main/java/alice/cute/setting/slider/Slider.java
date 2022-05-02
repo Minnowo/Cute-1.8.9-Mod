@@ -1,6 +1,7 @@
 package alice.cute.setting.slider;
 
 import alice.cute.setting.Setting;
+import alice.cute.setting.SettingType;
 
 public class Slider extends Setting
 {
@@ -16,6 +17,7 @@ public class Slider extends Setting
 		this._max = max;
 		this._scale = scale;
 		this._opened = false;
+		this._settingType = SettingType.SLIDER;
 	}
 	
 	public int getRoundingScale() 

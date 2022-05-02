@@ -42,16 +42,18 @@ public class ConfigManagerJSON
 
     public static void registerFiles(String name, String path) throws IOException 
     {
-        if (!Files.exists(Paths.get("cute/" + path + "/" + name + ".json"))) 
+    	String _path = "cute/" + path + "/" + name + ".json";
+    	
+        if (!Files.exists(Paths.get(_path))) 
         {
-            Files.createFile(Paths.get("cute/" + path + "/" + name + ".json"));
+            Files.createFile(Paths.get(_path));
+            return;
         }
-        else 
-        {
-            File file = new File("cute/" + path + "/" + name + ".json");
-            file.delete();
-            Files.createFile(Paths.get("cute/" + path + "/" + name + ".json"));
-        }
+        
+        
+        File file = new File(_path);
+        file.delete();
+        Files.createFile(Paths.get(_path));
     }
 
     public static void saveConfig() 
@@ -224,16 +226,23 @@ public class ConfigManagerJSON
     {
         for (Module module : ModuleManager.modules) 
         {
-            if (!Files.exists(Paths.get("cute/modules/" + module.getName() + ".json")))
+        	String modulePath = "cute/modules/" + module.getName() + ".json";
+        	
+        	System.out.println("Loading module: " + modulePath);
+        	
+            if (!Files.exists(Paths.get(modulePath)))
                 continue;
 
-            InputStream inputStream = Files.newInputStream(Paths.get("cute/modules/" + module.getName() + ".json"));
+            InputStream inputStream = Files.newInputStream(Paths.get(modulePath));
             JsonObject moduleObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
 
-            if (moduleObject.get("Name") == null || moduleObject.get("Enabled") == null || moduleObject.get("Drawn") == null || moduleObject.get("Bind") == null)
+            if (moduleObject.get("Name") == null || 
+        		moduleObject.get("Enabled") == null || 
+        		moduleObject.get("Drawn") == null || 
+        		moduleObject.get("Bind") == null)
                 continue;
 
-            JsonObject settingObject = moduleObject.get("Settings").getAsJsonObject();
+            JsonObject settingObject    = moduleObject.get("Settings").getAsJsonObject();
             JsonObject subSettingObject = settingObject.get("SubSettings").getAsJsonObject();
 
             for (Setting setting : module.getSettings()) 
@@ -277,9 +286,9 @@ public class ConfigManagerJSON
                                 if (subColorObject.get("Red") == null || subColorObject.get("Green") == null || subColorObject.get("Blue") == null || subColorObject.get("Alpha") == null)
                                 	return;
 
-                                redValueObject = subColorObject.get("Red");
+                                redValueObject   = subColorObject.get("Red");
                                 greenValueObject = subColorObject.get("Green");
-                                blueValueObject = subColorObject.get("Blue");
+                                blueValueObject  = subColorObject.get("Blue");
                                 alphaValueObject = subColorObject.get("Alpha");
                             } 
                             catch (Exception ignored) 

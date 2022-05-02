@@ -3,9 +3,9 @@ package alice.cute.module.modules.render;
 import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelZombie;
+
 import alice.cute.module.Module;
+import alice.cute.module.Category;
 import alice.cute.setting.checkbox.Checkbox;
 import alice.cute.setting.color.ColorPicker;
 import alice.cute.setting.mode.Mode;
@@ -13,6 +13,10 @@ import alice.cute.setting.slider.Slider;
 import alice.cute.util.Util;
 import alice.cute.util.render.ESPUtil;
 import alice.cute.util.world.EntityUtil;
+
+import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.model.ModelZombie;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

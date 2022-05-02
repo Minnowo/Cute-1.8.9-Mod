@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 
 import alice.cute.Reference;
 import alice.cute.module.Module;
-import alice.cute.module.Module.Category;
+import alice.cute.module.Category;
 import alice.cute.module.modules.render.VirtualBlock;
 import alice.cute.setting.checkbox.Checkbox;
 import alice.cute.setting.slider.Slider;

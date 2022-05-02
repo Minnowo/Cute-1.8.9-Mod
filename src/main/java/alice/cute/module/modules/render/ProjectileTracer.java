@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL32;
 import org.lwjgl.util.glu.Cylinder;
 
 import alice.cute.module.Module;
-import alice.cute.module.Module.Category;
+import alice.cute.module.Category;
 import alice.cute.setting.checkbox.Checkbox;
 import alice.cute.setting.color.ColorPicker;
 import alice.cute.setting.slider.Slider;

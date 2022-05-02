@@ -1,8 +1,9 @@
 package alice.cute.module.modules.render;
 
 import alice.cute.module.Module;
-import alice.cute.module.Module.Category;
+import alice.cute.module.Category;
 import alice.cute.setting.checkbox.Checkbox;
+
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;

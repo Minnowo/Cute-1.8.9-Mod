@@ -6,11 +6,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
 
 import alice.cute.module.Module;
+import alice.cute.module.Category;
 import alice.cute.setting.checkbox.Checkbox;
 import alice.cute.setting.color.ColorPicker;
 import alice.cute.setting.slider.Slider;
 import alice.cute.util.render.ESPUtil;
 import alice.cute.util.world.EntityUtil;
+
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;

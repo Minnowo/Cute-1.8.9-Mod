@@ -1,4 +1,4 @@
-package alice.cute.module.misc;
+package alice.cute.module.modules.misc;
 
 import java.util.Arrays;
 import java.util.List;

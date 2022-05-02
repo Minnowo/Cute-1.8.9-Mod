@@ -15,6 +15,7 @@ public class Mode extends Setting
 		this._name = name;
 		this._modes = modes;
 		this._opened = false;
+		this._settingType = SettingType.MODE;
 	}
 	
 	public String getMode(int modeIndex) 

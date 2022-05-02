@@ -147,11 +147,14 @@ public class Module implements IMixin
 		
 		try 
 		{
-			if (this.isEnabled())
-				this.onEnable();
-
-			else
+			if (this.isEnabled()) 
+			{
+				this.onEnable();	
+			}
+			else 
+			{
 				this.onDisable();
+			}
 		}
 		catch(Exception e) 
 		{
@@ -268,33 +271,5 @@ public class Module implements IMixin
 	}
 
 	
-	public enum Category 
-	{
-		CLIENT  ("Client", new Color(234, 71, 71)),
-		COMBAT  ("Combat", new Color(56, 103, 224)),
-		PLAYER  ("Player", new Color(37, 205, 84)),
-		MISC    ("Miscellaneous", new Color(122, 61, 217)),
-		MOVEMENT("Movement", new Color(217, 49, 103)),
-		RENDER  ("Render", new Color(231, 164, 73)),
-		BOT     ("Bot", new Color(208, 68, 195));
-
-		String _name;
-		Color _color;
-
-		Category(String name, Color color) 
-		{
-			this._name = name;
-			this._color = color;
-		}
-
-		public String getName() 
-		{
-			return this._name;
-		}
-
-		public Color getColor() 
-		{
-			return this._color;
-		}
-	}
+	
 }

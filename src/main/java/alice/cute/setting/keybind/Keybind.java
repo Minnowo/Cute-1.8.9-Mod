@@ -1,6 +1,7 @@
 package alice.cute.setting.keybind;
 
 import alice.cute.setting.Setting;
+import alice.cute.setting.SettingType;
 
 public class Keybind extends Setting
 {
@@ -13,6 +14,7 @@ public class Keybind extends Setting
 	        this._key = key;
 	        this._opened = false;
 	        this._binding = false;
+	        this._settingType = SettingType.KEYBIND;
 	    }
 
 	    public int getKey() 

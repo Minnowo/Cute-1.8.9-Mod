@@ -7,10 +7,16 @@ public class Setting
 {
 	protected String _name;
 	protected boolean _opened;
+	protected SettingType _settingType;
 	
 	protected List<SubSetting> _subs = new ArrayList();
 	
 
+	public SettingType getSettingType()
+	{
+		return this._settingType;
+	}
+	
 	public List<SubSetting> getSubSettings()
 	{
 		return this._subs;

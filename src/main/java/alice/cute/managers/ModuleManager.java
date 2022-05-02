@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
-import alice.cute.module.*;
-import alice.cute.module.Module.Category;
-import alice.cute.module.misc.AntiPotion;
+import alice.cute.module.Module;
+import alice.cute.module.Category;
+import alice.cute.module.modules.misc.*;
 import alice.cute.module.modules.render.*;
 import alice.cute.util.IMixin;
 import alice.cute.util.Util;
