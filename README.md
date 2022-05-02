@@ -7,11 +7,11 @@ This mod aims to be client-side only, and also doesn't use any mixins (that i'm 
 
 ### Features 
 
--Block ESP
--Entity ESP
--Tracers 
--No Render (disabled fog only)
--Projectile Tracers
+- Block ESP
+- Entity ESP
+- Tracers 
+- No Render (disabled fog only)
+- Projectile Tracers
 
 ### Modding Setup
 
@@ -21,9 +21,9 @@ I'm using [jdk-8](https://adoptium.net/temurin/releases), but Eclipse also needs
 
 If you can't open Eclipse because the jdk version do the following:
 - Open the start menu
-- Search for and open 'View advanced system settings'
-- Then click 'Environment Variables'
-- Under 'System variables' double click the value for 'JAVA_HOME' and make sure it points to "C:\Program Files\Eclipse Adoptium\jdk-17...-hotspot" ( or whereever you installed jdk-17)
+- Search for and open `View advanced system settings`
+- Then click `Environment Variables`
+- Under 'System variables' double click the value for `JAVA_HOME` and make sure it points to "C:\Program Files\Eclipse Adoptium\jdk-17...-hotspot" ( or whereever you installed jdk-17)
 
 
 Clone the repo and a terminal in the folder. (you can see for more details [README.txt](./gradlew-instructions.txt))
