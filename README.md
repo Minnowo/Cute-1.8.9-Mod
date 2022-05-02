@@ -15,7 +15,7 @@ This mod aims to be client-side only, and also doesn't use any mixins (that i'm 
 
 ### Modding Setup
 
-You shouldn't need to download forge because I think the gradlew.bat is enough, if not see [this](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) (I used the recommended MDK)
+You shouldn't need to download forge because I think the [gradlew.bat](./gradlew.bat) is enough, if not see [this](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) (I used the recommended MDK)
 
 I'm using [jdk-8](https://adoptium.net/temurin/releases), but Eclipse also needs some higher version to even open, so I also have [jdk-17](https://adoptium.net/temurin/releases).
 
