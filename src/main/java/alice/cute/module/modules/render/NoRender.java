@@ -23,6 +23,15 @@ public class NoRender extends Module
 	public static Checkbox blockOverlay = new Checkbox("Block Overlay", true);
 	public static Checkbox fog = new Checkbox("Fog", true);
 	
+	@Override
+    public void setup() 
+	{
+        addSetting(fire);
+        addSetting(water);
+        addSetting(blockOverlay);
+        addSetting(fog);
+    }
+	
 //	public static Checkbox hurtCamera = new Checkbox("Hurt Camera", true);
 //    
 //    public static Checkbox armor = new Checkbox("Armor", false);

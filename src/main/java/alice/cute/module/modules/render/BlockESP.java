@@ -41,9 +41,9 @@ public class BlockESP extends Module
 		super("Block ESP", Category.RENDER, "Highlights blocks");
 	}
 	
-	public static Checkbox IntervalRefresh = new Checkbox("Automatically Refresh", false);
-	public static Slider RefreshInterval   = new Slider("Refresh Interval", 0.0D, 80D, 1000D, 1);
-	public static Slider SearchRadius      = new Slider("Search Radius", 0.0D, 45D, 200D, 1);
+	public static Checkbox IntervalRefresh = new Checkbox("Auto Refresh", false);
+	public static Slider RefreshInterval   = new Slider("Refresh", 1.0D, 30D, 500D, 1);
+	public static Slider SearchRadius      = new Slider("Radius", 0.0D, 45D, 200D, 1);
 
 	public static int DisplayListId = 0; // no idea what this is lmao
 	  

@@ -10,9 +10,11 @@ import alice.cute.module.Module;
 import alice.cute.module.Category;
 import alice.cute.module.modules.misc.*;
 import alice.cute.module.modules.render.*;
+import alice.cute.module.modules.gui.*;
 import alice.cute.util.IMixin;
 import alice.cute.util.Util;
 import alice.cute.module.modules.*;
+
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
@@ -36,6 +38,8 @@ public class ModuleManager implements IMixin
 	
 	public static List<Module> modules = Arrays.asList
 				(
+					new ClickGUI(),
+					
 					new BlockESP(),
 					new EntityESP(),
 					new Fullbright(),

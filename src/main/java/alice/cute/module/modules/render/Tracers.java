@@ -52,10 +52,25 @@ public class Tracers extends Module
     public static Checkbox items = new Checkbox("Items", true);
     public static ColorPicker itemsPicker = new ColorPicker(items, "Item Picker", new Color(199, 196, 19));
 
-    public static Slider lineWidth = new Slider("Line Width", 0.0D, 2.5D, 5.0D, 1);
-    public static Slider horizontalRadius = new Slider("Horizontal Radius", 1, 100, 500D, 1);
-    public static Slider verticalRadius = new Slider("Vertical Radius", 1, 50, 500D, 1);
+    public static Slider lineWidth = new Slider("Line Width", 0.1D, 2.5D, 5.0D, 1);
+    public static Slider horizontalRadius = new Slider("X Radius", 1, 100, 300D, 1);
+    public static Slider verticalRadius = new Slider("Y Radius", 1, 50, 300D, 1);
     public static Slider firstPersonRenderPoint = new Slider("Render From Y", 0, 100, 100, 1);
+    
+    @Override
+    public void setup() 
+	{
+        addSetting(players);
+        addSetting(animals);
+        addSetting(mobs);
+        addSetting(neutral);
+        addSetting(vehicles);
+        addSetting(items);
+        addSetting(lineWidth);
+        addSetting(horizontalRadius);
+        addSetting(verticalRadius);
+        addSetting(firstPersonRenderPoint);
+    }
     
 	@Override
 	public boolean nullCheck() 

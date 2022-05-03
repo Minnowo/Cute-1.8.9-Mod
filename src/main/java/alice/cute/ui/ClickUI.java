@@ -1,4 +1,4 @@
-package alice.cute.UI;
+package alice.cute.ui;
 
 
 
@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import alice.cute.module.*;
-
+import alice.cute.ui.components.Button;
+import alice.cute.ui.components.Component;
+import alice.cute.ui.components.Frame;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.client.gui.GuiScreen;
@@ -16,21 +18,17 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.util.ResourceLocation;
 
-import alice.cute.UI.Components.Button;
-import alice.cute.UI.Components.Component;
-import alice.cute.UI.Components.Frame;
-
 import org.lwjgl.input.Mouse;
 
 
-public class ClickGUI extends GuiScreen 
+public class ClickUI extends GuiScreen 
 {
 	public static final Color color = new Color(153, 207, 220);
 	
 	public static ArrayList<Frame> frames;
 
 
-	public ClickGUI() 
+	public ClickUI() 
 	{
 		this.frames = new ArrayList<Frame>();
 		
@@ -49,15 +47,8 @@ public class ClickGUI extends GuiScreen
 	}
 
 	@Override
-	public void initGui() 
-	{
-
-	}
-
-	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
 	{
-//		boolean particles = Hydrogen.getClient().settingsManager.getSettingByName("Particles").isEnabled();
 //		boolean blur = Hydrogen.getClient().settingsManager.getSettingByName("Blur").isEnabled();
 		
 		drawRect(0, 0, this.width, this.height, 0x66101010);
@@ -77,11 +68,6 @@ public class ClickGUI extends GuiScreen
 				comp.updateComponent(mouseX, mouseY);
 			}
 		}
-		
-//		if(particles) 
-//		{
-//			particleGenerator.drawParticles(0, 0, false);
-//		}
 	}
 
 	@Override
@@ -89,18 +75,21 @@ public class ClickGUI extends GuiScreen
 	{
 		for(Frame frame : frames) 
 		{
-			if(frame.isWithinHeader(mouseX, mouseY) && mouseButton == 0) 
+			if (frame.isWithinHeader(mouseX, mouseY)) 
 			{
-				frame.setDrag(true);
-				frame.dragX = mouseX - frame.getX();
-				frame.dragY = mouseY - frame.getY();
+				if(mouseButton == 0) 
+				{
+					frame.setDrag(true);
+					frame.dragX = mouseX - frame.getX();
+					frame.dragY = mouseY - frame.getY();
+				}
+				
+				if(mouseButton == 1) 
+				{
+					frame.toggleOpen();
+				}
 			}
-			
-			if(frame.isWithinHeader(mouseX, mouseY) && mouseButton == 1) 
-			{
-				frame.setOpen(!frame.isOpen());
-			}
-			
+						
 			if(!frame.isOpen())
 				continue;
 			
@@ -137,30 +126,17 @@ public class ClickGUI extends GuiScreen
         }
 	}
 
-	@Override
-	public void onGuiClosed() 
-	{
-//		if(this.mc.entityRenderer.getShaderGroup() != null) 
-//		{
-//			this.mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-//			try 
-//			{
-//				ReflectionUtil.theShaderGroup.set(Minecraft.getMinecraft().entityRenderer, null);
-//			} 
-//			catch (IllegalAccessException e) 
-//			{
-//				e.printStackTrace();
-//			}
-//		}
-		
-//		if(!Hydrogen.getClient().panic) 
-//		{
-//			ClickGuiConfig clickGuiConfig = new ClickGuiConfig();
-//			clickGuiConfig.saveConfig();
-//		}
-
-		super.onGuiClosed();
-	}
+//	@Override
+//	public void onGuiClosed() 
+//	{
+////		if(!Hydrogen.getClient().panic) 
+////		{
+////			ClickGuiConfig clickGuiConfig = new ClickGuiConfig();
+////			clickGuiConfig.saveConfig();
+////		}
+//
+//		super.onGuiClosed();
+//	}
 
 	
 	@Override

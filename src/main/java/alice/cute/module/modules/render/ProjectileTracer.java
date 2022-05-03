@@ -58,9 +58,16 @@ public class ProjectileTracer extends Module
 		super("Projectile Tracer", Category.RENDER, "Shows projectile trajectories");
 	}
 	
-	public static Checkbox renderTargetBlock = new Checkbox("Highlight Target Block", true);
+	public static Checkbox renderTargetBlock = new Checkbox("Highlight Block", true);
     public static ColorPicker tracerColorPicker = new ColorPicker(renderTargetBlock, "Tracer Color", new Color(255,255,255));
-	public static Slider lineWidth = new Slider("Line Width", 0.0D, 2.5D, 5.0D, 1);
+	public static Slider lineWidth = new Slider("Line Width", 0.1D, 2.5D, 5.0D, 1);
+	
+	@Override
+    public void setup() 
+	{
+        addSetting(renderTargetBlock);
+        addSetting(lineWidth);
+    }
 	
 	@Override
 	public boolean nullCheck() 

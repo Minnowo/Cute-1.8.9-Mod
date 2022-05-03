@@ -11,7 +11,8 @@ import java.awt.*;
 /**
  * Created by peanut on 04/02/2021
  */
-public class FontUtil {
+public class FontUtil 
+{
 
     private static FontRenderer fontRenderer;
     private static Minecraft mc = Minecraft.getMinecraft();
@@ -21,20 +22,20 @@ public class FontUtil {
     {
         fontRenderer = mc.fontRendererObj;
     }
-
+    
     public static int getStringWidth(String text) 
     {
-        return fontRenderer.getStringWidth(StringUtils.stripControlCodes(text));
+        return mc.fontRendererObj.getStringWidth(text);
     }
 
     public static int getFontHeight() 
     {
-        return fontRenderer.FONT_HEIGHT;
+        return mc.fontRendererObj.FONT_HEIGHT;
     }
 
     public static void drawString(String text, double x, double y, int color) 
     {
-        fontRenderer.drawString(text, (int)x, (int)y, color);
+    	mc.fontRendererObj.drawString(text, (int)x, (int)y, color);
     }
 
 //    public static void TTFdrawString(String text, double x, double y, Color color) 

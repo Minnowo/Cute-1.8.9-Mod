@@ -1,5 +1,7 @@
 package alice.cute.util;
 
+import java.awt.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
@@ -28,4 +30,21 @@ public class Util
 	{
 		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatComponentText(message), 69);
 	}
+	
+	public static Color getHealthColor(float health) 
+    {
+        if (health <= 4)
+            return new Color(200, 0, 0);
+        
+        if (health <= 8)
+            return new Color(231, 143, 85);
+        
+        if (health <= 12)
+            return new Color(219, 201, 106);
+        
+        if (health <= 16)
+            return new Color(117, 231, 85);
+        
+        return new Color(44, 186, 19);
+    }
 }

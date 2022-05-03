@@ -41,99 +41,90 @@ public class RenderUtil
 {
 	 private static final Minecraft mc = Minecraft.getMinecraft();
 
-	    public static void rect(float x1, float y1, float x2, float y2, Color c) 
-	    {
-//	    	can almost certainly delete this
-//	    	=================================
-	        GlStateManager.color(0, 0, 0);
-	        GL11.glColor4f(0, 0, 0, 0);
-//	        ================================= 
-
-	        GL11.glDisable(GL11.GL_TEXTURE_2D);
+	 
+	 
+	 
+	 
+	 
+	 
+	 	public static void beginRenderRect()
+	 	{
+	 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 	        
 	        GL11.glEnable(GL11.GL_BLEND);
 	        GL11.glEnable(GL11.GL_LINE_SMOOTH);
 	        
 	        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	        
-
 	        GL11.glPushMatrix();
-	        setColor(c);
-	        
-	        GL11.glBegin(7);
-	        GL11.glVertex2d(x2, y1);
-	        GL11.glVertex2d(x1, y1);
-	        GL11.glVertex2d(x1, y2);
-	        GL11.glVertex2d(x2, y2);
-	        GL11.glEnd();
-	        
-	        GL11.glPopMatrix();
-
+	 	}
+	 
+	 	public static void endRenderRect()
+	 	{
+	 		GL11.glPopMatrix();
 	        
 	        GL11.glDisable(GL11.GL_LINE_SMOOTH);
 	        GL11.glDisable(GL11.GL_BLEND);
 	        
 	        GL11.glEnable(GL11.GL_TEXTURE_2D);
-	    }
-
-	    public static void rect(double x1, double y1, double x2, double y2, Color c) 
+	 	}
+	 	
+	 	
+	 	// renders a single rectangle
+	 	public static void renderRectSingle(float x1, float y1, float x2, float y2, Color c)
+	 	{
+	 		beginRenderRect();
+	 		renderRect(x1, y1, x2, y2, c);
+	 		endRenderRect();
+	 	}
+	 	
+	 	// renders a single rectangle
+	 	public static void renderRectSingle(double x1, double y1, double x2, double y2, Color c) 
 	    {
-//	    	can almost certainly delete this
-//	    	=================================
-	        GlStateManager.color(0, 0, 0);
-	        GL11.glColor4f(0, 0, 0, 0);
-//	        ================================= 
-
-	        GL11.glDisable(GL11.GL_TEXTURE_2D);
-	        
-	        GL11.glEnable(GL11.GL_BLEND);
-	        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-	        
-	        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	        
-
-	        GL11.glPushMatrix();
+	 		beginRenderRect();
+	 		renderRect(x1, y1, x2, y2, c);
+	 		endRenderRect();
+	 	}
+	 	
+		// renders a rectangle on an existing matrix, 
+		// this should only be used after the use of 'beginRenderRect' or something similar
+	    public static void renderRect(float x1, float y1, float x2, float y2, Color c) 
+	    {
 	        setColor(c);
-	        
-	        GL11.glBegin(7);
+
+	        GL11.glBegin(GL11.GL_QUADS);
 	        GL11.glVertex2d(x2, y1);
 	        GL11.glVertex2d(x1, y1);
 	        GL11.glVertex2d(x1, y2);
 	        GL11.glVertex2d(x2, y2);
-	        GL11.glEnd();
-	        
-	        GL11.glPopMatrix();
+	        GL11.glEnd();   
+	    }
 
-	        
-	        GL11.glDisable(GL11.GL_LINE_SMOOTH);
-	        GL11.glDisable(GL11.GL_BLEND);
-	        
-	        GL11.glEnable(GL11.GL_TEXTURE_2D);
+	    // renders a rectangle on an existing matrix, 
+ 		// this should only be used after the use of 'beginRenderRect' or something similar
+	    public static void renderRect(double x1, double y1, double x2, double y2, Color c) 
+	    {
+	    	setColor(c);
+	     
+	        GL11.glBegin(GL11.GL_QUADS);
+	        GL11.glVertex2d(x2, y1);
+	        GL11.glVertex2d(x1, y1);
+	        GL11.glVertex2d(x1, y2);
+	        GL11.glVertex2d(x2, y2);
+	        GL11.glEnd();   
 	    }
 	    
 	    
 	    
+	    
+	    
+	    
+	    // sets the glColor4d to this color 
 	    public static void setColor(Color c) 
 	    {
 	        glColor4d(c.getRed() / 255f, c.getGreen() / 255f, c.getBlue() / 255f, c.getAlpha() / 255f);
 	    }
 	
-	    public static Color getHealthColor(float health) 
-	    {
-	        if (health <= 4)
-	            return new Color(200, 0, 0);
-	        
-	        if (health <= 8)
-	            return new Color(231, 143, 85);
-	        
-	        if (health <= 12)
-	            return new Color(219, 201, 106);
-	        
-	        if (health <= 16)
-	            return new Color(117, 231, 85);
-	        
-	        return new Color(44, 186, 19);
-	    }
+	    
 	    
 	    
 	    public static class ESPUtil 

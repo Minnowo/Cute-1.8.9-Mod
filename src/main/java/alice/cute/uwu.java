@@ -73,7 +73,7 @@ public class uwu
 		ConfigManagerJSON.loadConfig();
 		
 //		entity esp 
-//		moduleManager.modules.get(1).setKeyCode(Keyboard.KEY_1);
+		moduleManager.modules.get(0).setKeyCode(Keyboard.KEY_RSHIFT);
 	}
 	
 	@SideOnly(Side.CLIENT)

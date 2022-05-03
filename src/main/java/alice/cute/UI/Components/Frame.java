@@ -1,4 +1,4 @@
-package alice.cute.UI.Components;
+package alice.cute.ui.components;
 
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 //import me.peanut.hydrogen.module.modules.gui.ClickGUI;
 
 import alice.cute.module.*;
-import alice.cute.UI.ClickGUI;
+import alice.cute.ui.ClickUI;
 import alice.cute.managers.ModuleManager;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
@@ -37,6 +37,8 @@ public class Frame
 	public int dragX;
 	public int dragY;
 
+	public Color color;
+	
 	public Frame(Category cat) 
 	{
 		this.components = new ArrayList<Component>();
@@ -48,7 +50,9 @@ public class Frame
 		this.dragX      = 0;
 		this.open       = false;
 		this.isDragging = false;
+		this.color  	= new Color(128, 128, 128);
 		
+		System.out.println("frame constructor");
 		
 		int tY = this.barHeight;
 
@@ -56,6 +60,7 @@ public class Frame
 		{
 			Button modButton = new Button(mod, this, tY);
 			this.components.add(modButton);
+			System.out.println(this.components.get(0));
 			tY += 12;
 		}
 	}
@@ -89,29 +94,26 @@ public class Frame
 	{
 		this.open = open;
 	}
+	
+	public void toggleOpen() 
+	{
+		this.open = !this.open;
+	}
 
 	public void renderFrame(FontRenderer fontRenderer) 
 	{
-		Module cgui = ModuleManager.getModuleByClass(ClickGUI.class);
 		
-		Color color = new Color(128, 128, 128);
-		RenderUtil.rect(this.x - 2, this.y - 2, this.x + this.width + 2, this.y + this.barHeight, color);
-
-//		if(Hydrogen.getClient().settingsManager.getSettingByName("Font Type").getMode().equalsIgnoreCase("TTF")) 
-//		{
-//			FontUtil.drawTotalCenteredStringWithShadowVerdana(this.category.name(), (this.x + this.width / 2), (this.y + 7) - 3, Color.white);
-//		} 
-//		else 
-//		{
+		
+		RenderUtil.renderRectSingle(this.x - 2, this.y - 2, this.x + this.width + 2, this.y + this.barHeight, this.color);
 		
 		FontUtil.drawTotalCenteredStringWithShadowMC(this.category.name(), (this.x + this.width / 2), (this.y + 7) - 1, -1);
 
 		for (Component component : this.components) 
-		{
+		{	
 			if (!this.open)
 				continue;
 			
-			if (!this.components.isEmpty())
+			if (this.components.isEmpty())
 				continue;
 			
 			component.renderComponent();

@@ -1,9 +1,10 @@
-package alice.cute.UI.Components;
+package alice.cute.ui.components;
 
 
 public class Component 
 {
-
+	protected final int height = 12;
+	
 	public void renderComponent() 
 	{
 	}

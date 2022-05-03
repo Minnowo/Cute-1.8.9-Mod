@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import alice.cute.module.Module;
-import alice.cute.module.Module.Category;
+import alice.cute.module.Category;
 import net.minecraft.potion.Potion;
 
 public class AntiPotion extends Module 

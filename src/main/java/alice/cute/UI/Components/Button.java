@@ -1,4 +1,4 @@
-package alice.cute.UI.Components;
+package alice.cute.ui.components;
 
 
 import java.awt.*;
@@ -22,6 +22,10 @@ import alice.cute.module.Module;
 import alice.cute.setting.Setting;
 import alice.cute.setting.checkbox.Checkbox;
 import alice.cute.setting.slider.Slider;
+import alice.cute.ui.ClickUI;
+import alice.cute.ui.components.sub.CheckboxButton;
+import alice.cute.ui.components.sub.ModeButton;
+import alice.cute.ui.components.sub.SliderButton;
 import alice.cute.setting.color.ColorPicker;
 import alice.cute.setting.mode.Mode;
 import alice.cute.setting.keybind.Keybind;
@@ -30,9 +34,6 @@ import alice.cute.setting.SettingType;
 
 import alice.cute.util.RenderUtil;
 import alice.cute.util.FontUtil;
-
-import alice.cute.UI.ClickGUI;
-
 import net.minecraft.client.Minecraft;
 
 public class Button extends Component 
@@ -46,8 +47,7 @@ public class Button extends Component
 	public Color colorEnabled;
 	public Color colorEnabledHovered;
 	public final int fontColor = new Color(255, 255, 233).getRGB();
-	
-	public final int height;
+
 	
 	public int offset;
 	private	int tooltipX;
@@ -64,7 +64,6 @@ public class Button extends Component
 		this.offset = offset;
 		this.subcomponents = new ArrayList<Component>();
 		this.open = false;
-		this.height = 12;
 		
 		this.color               = new Color(51, 0, 0);
 		this.colorEnabledHovered = new Color(32, 0, 0);
@@ -72,24 +71,24 @@ public class Button extends Component
 		this.colorHover          = new Color(48, 0, 0);
 		
 		
-		int opY = offset + 12;
+		int opY = offset + this.height;
 		
 		for(Setting s : mod.getSettings())
 		{
 			switch(s.getSettingType())
 			{
 				case CHECKBOX:
-//					this.subcomponents.add(new CheckboxButton(s, this, mod, opY));
+					this.subcomponents.add(new CheckboxButton((Checkbox)s, this, opY));
 					opY += this.height;
 					break;
 					
 				case SLIDER:
-//					this.subcomponents.add(new SliderButton(s, this, mod, opY));
+					this.subcomponents.add(new SliderButton((Slider)s, this, opY));
 					opY += this.height;
 					break;
 					
 				case MODE:
-//					this.subcomponents.add(new ModeButton(s, this, mod, opY));
+					this.subcomponents.add(new ModeButton((Mode)s, this, opY));
 					opY += this.height;
 					break;
 					
@@ -151,41 +150,33 @@ public class Button extends Component
 		int x2 = x + this.parent.getWidth();
 		int y2 = y + this.height;
 		
-		RenderUtil.rect(x, y, x2, y2, this.color);
-		RenderUtil.rect(x, y, x2, y2, this.color);
-
+		RenderUtil.beginRenderRect();
+		RenderUtil.renderRect(x, y, x2, y2, this.color);
+		RenderUtil.renderRect(x, y, x2, y2, this.color);
+		
 		if(this.mod.isEnabled() && this.isHovered) 
 		{
-			RenderUtil.rect(x, y, x2, y2, this.colorEnabledHovered);
+			RenderUtil.renderRect(x, y, x2, y2, this.colorEnabledHovered);	
 		}
 
 		if(this.mod.isEnabled()) 
 		{
-			RenderUtil.rect(x, y, x2, y2, this.colorEnabledHovered);
+			RenderUtil.renderRect(x, y, x2, y2, this.colorEnabledHovered);	
 		}
 
 		if(this.isHovered) 
 		{
-			RenderUtil.rect(x, y, x2, y2, this.colorHover);
+			RenderUtil.renderRect(x, y, x2, y2, this.colorHover);	
 		}
+		
+		RenderUtil.endRenderRect();
+		
+		FontUtil.drawTotalCenteredStringWithShadowMC(
+				this.mod.getName(), 
+				x + this.parent.getWidth() / 2, 
+				y + (int)(this.height / 2) + 1, 
+				this.fontColor);
 
-//		if(Hydrogen.getClient().settingsManager.getSettingByName("Font Type").getMode().equalsIgnoreCase("TTF")) {
-//			FontUtil.drawTotalCenteredStringWithShadowSFL(this.mod.toggled ? this.mod.getName() : this.isHovered ? "§7" + this.mod.getName() : "§f" + this.mod.getName(), parent.getX() + parent.getWidth() / 2, (parent.getY() + offset + 7) - 2, new Color(255, 233, 181));
-//		} else {
-		
-		
-//		if(this.mod.isEnabled())
-//		{
-			FontUtil.drawTotalCenteredStringWithShadowMC(
-					this.mod.getName(), 
-					x + this.parent.getWidth() / 2, 
-					y + (int)(this.height / 2) + 1, 
-					this.fontColor);
-//		}
-			
-//	    this is a 1 line of the above basically, try this if the above breaks 
-//		FontUtil.drawTotalCenteredStringWithShadowMC(this.mod.isEnabled() ? this.mod.getName() : this.isHovered ? "§7" + this.mod.getName() : "§f" + this.mod.getName(), parent.getX() + parent.getWidth() / 2, (parent.getY() + offset + 7), 0xffffe9b5);
-		
 
 //		if(this.subcomponents.size() > 2)
 //			FontHelper.sf_l.drawStringWithShadow(this.open ? "v" : "§f>", (parent.getX() + parent.getWidth() - 10), (parent.getY() + offset), new Color(255, 230, 181));
@@ -201,8 +192,9 @@ public class Button extends Component
 		{
 			comp.renderComponent();
 		}
-		RenderUtil.rect(x + 2, y2, x + 3, y + ((this.subcomponents.size() + 1) * this.height), ClickGUI.color);
 		
+		
+		RenderUtil.renderRectSingle(x + 2, y2, x + 3, y + ((this.subcomponents.size() + 1) * this.height), ClickUI.color);
 		
 
 //		if(this.isHovered && Hydrogen.getClient().settingsManager.getSettingByName("Tooltip").isEnabled()) {
@@ -225,7 +217,7 @@ public class Button extends Component
 	@Override
 	public void updateComponent(int mouseX, int mouseY) 
 	{
-		this.isHovered = isMouseOnButton(mouseX, mouseY);
+		// this.isHovered = isMouseOnButton(mouseX, mouseY);
 		
 //		if(Hydrogen.getClient().settingsManager.getSettingByName("Tooltip").isEnabled()) 
 //		{
@@ -245,17 +237,21 @@ public class Button extends Component
 	@Override
 	public void mouseClicked(int mouseX, int mouseY, int button) 
 	{
-		if(isMouseOnButton(mouseX, mouseY) && button == 0) 
+		if(isMouseOnButton(mouseX, mouseY))
 		{
-			this.mod.toggle();
-		}
-	
-		if(isMouseOnButton(mouseX, mouseY) && button == 1) 
-		{
-			this.open = !this.open;
-			this.parent.refresh();
+			if(button == 0) 
+			{
+				this.mod.toggle();
+			}
+
+			else if(button == 1) 
+			{
+				this.open = !this.open;
+				this.parent.refresh();
+			}
 		}
 		
+			
 		for(Component comp : this.subcomponents) 
 		{
 			comp.mouseClicked(mouseX, mouseY, button);
@@ -288,7 +284,7 @@ public class Button extends Component
 		return x > parent.getX() && 
 			   x < parent.getX() + parent.getWidth() && 
 			   y > this.parent.getY() + this.offset &&
-			   y < this.parent.getY() + 12 + this.offset;
+			   y < this.parent.getY() + this.height + this.offset;
 	}
 }
 
