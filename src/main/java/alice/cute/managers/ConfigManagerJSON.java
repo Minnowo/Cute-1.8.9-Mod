@@ -4,14 +4,13 @@ import com.google.gson.*;
 
 import alice.cute.module.Module;
 import alice.cute.module.modules.render.VirtualBlock;
+import alice.cute.setting.Checkbox;
+import alice.cute.setting.ColorPicker;
+import alice.cute.setting.Keybind;
+import alice.cute.setting.Mode;
 import alice.cute.setting.Setting;
+import alice.cute.setting.Slider;
 import alice.cute.setting.SubSetting;
-import alice.cute.setting.checkbox.*;
-import alice.cute.setting.checkbox.Checkbox;
-import alice.cute.setting.color.*;
-import alice.cute.setting.keybind.*;
-import alice.cute.setting.mode.*;
-import alice.cute.setting.slider.*;
 
 import net.minecraft.client.settings.KeyBinding;
 
@@ -117,17 +116,17 @@ public class ConfigManagerJSON
                     if (((Checkbox) setting).hasSubSettings()) 
                     {
                         for (SubSetting subSetting : ((Checkbox) setting).getSubSettings()) {
-                            if (subSetting instanceof SubCheckbox)
-                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
-
-                            if (subSetting instanceof SubSlider)
-                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
-
-                            if (subSetting instanceof SubMode)
-                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
-
-                            if (subSetting instanceof SubKeybind)
-                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
+//                            if (subSetting instanceof SubCheckbox)
+//                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubSlider)
+//                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubMode)
+//                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
 
                             if (subSetting instanceof ColorPicker) {
                                 JsonObject subColorObject = new JsonObject();
@@ -147,69 +146,69 @@ public class ConfigManagerJSON
                 {
                     settingObject.add(((Slider) setting).getName(), new JsonPrimitive(((Slider) setting).getValue()));
 
-                    if (((Slider) setting).hasSubSettings()) 
-                    {
-                        for (SubSetting subSetting : ((Slider) setting).getSubSettings()) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
-
-                            if (subSetting instanceof SubSlider)
-                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
-
-                            if (subSetting instanceof SubMode)
-                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
-
-                            if (subSetting instanceof SubKeybind)
-                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
-                        }
-                    }
+//                    if (((Slider) setting).hasSubSettings()) 
+//                    {
+//                        for (SubSetting subSetting : ((Slider) setting).getSubSettings()) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubSlider)
+//                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubMode)
+//                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
+//                        }
+//                    }
                 }
 
                 if (setting instanceof Mode) 
                 {
                     settingObject.add(((Mode) setting).getName(), new JsonPrimitive(((Mode) setting).getValue()));
 
-                    if (((Mode) setting).hasSubSettings()) 
-                    {
-                        for (SubSetting subSetting : ((Mode) setting).getSubSettings()) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
-
-                            if (subSetting instanceof SubSlider)
-                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
-
-                            if (subSetting instanceof SubMode)
-                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
-
-                            if (subSetting instanceof SubKeybind)
-                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
-                        }
-                    }
+//                    if (((Mode) setting).hasSubSettings()) 
+//                    {
+//                        for (SubSetting subSetting : ((Mode) setting).getSubSettings()) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubSlider)
+//                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubMode)
+//                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
+//                        }
+//                    }
                 }
 
                 if (setting instanceof Keybind) 
                 {
                     settingObject.add(((Keybind) setting).getName(), new JsonPrimitive(((Keybind) setting).getKey()));
 
-                    if (((Keybind) setting).hasSubSettings()) 
-                    {
-                        for (SubSetting subSetting : ((Keybind) setting).getSubSettings()) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
-
-                            if (subSetting instanceof SubSlider)
-                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
-
-                            if (subSetting instanceof SubMode)
-                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
-
-                            if (subSetting instanceof SubKeybind)
-                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
-                        }
-                    }
+//                    if (((Keybind) setting).hasSubSettings()) 
+//                    {
+//                        for (SubSetting subSetting : ((Keybind) setting).getSubSettings()) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                subSettingObject.add(((SubCheckbox) subSetting).getName(), new JsonPrimitive(((SubCheckbox) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubSlider)
+//                                subSettingObject.add(((SubSlider) subSetting).getName(), new JsonPrimitive(((SubSlider) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubMode)
+//                                subSettingObject.add(((SubMode) subSetting).getName(), new JsonPrimitive(((SubMode) subSetting).getValue()));
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                subSettingObject.add(((SubKeybind) subSetting).getName(), new JsonPrimitive(((SubKeybind) subSetting).getKey()));
+//                        }
+//                    }
                 }
             }
 
@@ -262,17 +261,17 @@ public class ConfigManagerJSON
                         JsonElement blueValueObject = null;
                         JsonElement alphaValueObject = null;
 
-                        if (subSetting instanceof SubCheckbox)
-                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
-
-                        if (subSetting instanceof SubSlider)
-                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
-
-                        if (subSetting instanceof SubMode)
-                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
-
-                        if (subSetting instanceof SubKeybind)
-                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
+//                        if (subSetting instanceof SubCheckbox)
+//                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
+//
+//                        if (subSetting instanceof SubSlider)
+//                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
+//
+//                        if (subSetting instanceof SubMode)
+//                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
+//
+//                        if (subSetting instanceof SubKeybind)
+//                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
 
                         if (subSetting instanceof ColorPicker) 
                         {
@@ -297,20 +296,20 @@ public class ConfigManagerJSON
                             }
                         }
 
-                        if (subSettingValueObject != null) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
-
-                            if (subSetting instanceof SubSlider)
-                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
-
-                            if (subSetting instanceof SubMode)
-                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
-
-                            if (subSetting instanceof SubKeybind)
-                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
-                        }
+//                        if (subSettingValueObject != null) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
+//
+//                            if (subSetting instanceof SubSlider)
+//                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
+//
+//                            if (subSetting instanceof SubMode)
+//                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
+//                        }
 
                         if (redValueObject != null && greenValueObject != null && blueValueObject != null && alphaValueObject != null)
                             ((ColorPicker) subSetting).setColor(new Color(redValueObject.getAsInt(), greenValueObject.getAsInt(), blueValueObject.getAsInt(), alphaValueObject.getAsInt()));
@@ -325,32 +324,32 @@ public class ConfigManagerJSON
                     {
                         JsonElement subSettingValueObject = null;
 
-                        if (subSetting instanceof SubCheckbox)
-                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
-
-                        if (subSetting instanceof SubSlider)
-                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
-
-                        if (subSetting instanceof SubMode)
-                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
-
-                        if (subSetting instanceof SubKeybind)
-                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
-
-                        if (subSettingValueObject != null) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
-
-                            if (subSetting instanceof SubSlider)
-                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
-
-                            if (subSetting instanceof SubMode)
-                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
-
-                            if (subSetting instanceof SubKeybind)
-                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
-                        }
+//                        if (subSetting instanceof SubCheckbox)
+//                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
+//
+//                        if (subSetting instanceof SubSlider)
+//                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
+//
+//                        if (subSetting instanceof SubMode)
+//                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
+//
+//                        if (subSetting instanceof SubKeybind)
+//                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
+//
+//                        if (subSettingValueObject != null) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
+//
+//                            if (subSetting instanceof SubSlider)
+//                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
+//
+//                            if (subSetting instanceof SubMode)
+//                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
+//                        }
                     }
                 }
 
@@ -362,32 +361,32 @@ public class ConfigManagerJSON
                     {
                         JsonElement subSettingValueObject = null;
 
-                        if (subSetting instanceof SubCheckbox)
-                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
-
-                        if (subSetting instanceof SubSlider)
-                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
-
-                        if (subSetting instanceof SubMode)
-                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
-
-                        if (subSetting instanceof SubKeybind)
-                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
-
-                        if (subSettingValueObject != null) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
-
-                            if (subSetting instanceof SubSlider)
-                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
-
-                            if (subSetting instanceof SubMode)
-                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
-
-                            if (subSetting instanceof SubKeybind)
-                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
-                        }
+//                        if (subSetting instanceof SubCheckbox)
+//                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
+//
+//                        if (subSetting instanceof SubSlider)
+//                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
+//
+//                        if (subSetting instanceof SubMode)
+//                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
+//
+//                        if (subSetting instanceof SubKeybind)
+//                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
+//
+//                        if (subSettingValueObject != null) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
+//
+//                            if (subSetting instanceof SubSlider)
+//                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
+//
+//                            if (subSetting instanceof SubMode)
+//                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
+//                        }
                     }
                 }
 
@@ -398,32 +397,32 @@ public class ConfigManagerJSON
                     for (SubSetting subSetting : ((Keybind) setting).getSubSettings()) {
                         JsonElement subSettingValueObject = null;
 
-                        if (subSetting instanceof SubCheckbox)
-                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
-
-                        if (subSetting instanceof SubSlider)
-                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
-
-                        if (subSetting instanceof SubMode)
-                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
-
-                        if (subSetting instanceof SubKeybind)
-                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
-
-                        if (subSettingValueObject != null) 
-                        {
-                            if (subSetting instanceof SubCheckbox)
-                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
-
-                            if (subSetting instanceof SubSlider)
-                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
-
-                            if (subSetting instanceof SubMode)
-                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
-
-                            if (subSetting instanceof SubKeybind)
-                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
-                        }
+//                        if (subSetting instanceof SubCheckbox)
+//                            subSettingValueObject = subSettingObject.get(((SubCheckbox) subSetting).getName());
+//
+//                        if (subSetting instanceof SubSlider)
+//                            subSettingValueObject = subSettingObject.get(((SubSlider) subSetting).getName());
+//
+//                        if (subSetting instanceof SubMode)
+//                            subSettingValueObject = subSettingObject.get(((SubMode) subSetting).getName());
+//
+//                        if (subSetting instanceof SubKeybind)
+//                            subSettingValueObject = subSettingObject.get(((SubKeybind) subSetting).getName());
+//
+//                        if (subSettingValueObject != null) 
+//                        {
+//                            if (subSetting instanceof SubCheckbox)
+//                                ((SubCheckbox) subSetting).setChecked(subSettingValueObject.getAsBoolean());
+//
+//                            if (subSetting instanceof SubSlider)
+//                                ((SubSlider) subSetting).setValue(subSettingValueObject.getAsDouble());
+//
+//                            if (subSetting instanceof SubMode)
+//                                ((SubMode) subSetting).setMode(subSettingValueObject.getAsInt());
+//
+//                            if (subSetting instanceof SubKeybind)
+//                                ((SubKeybind) subSetting).setKey(subSettingValueObject.getAsInt());
+//                        }
                     }
                 }
 

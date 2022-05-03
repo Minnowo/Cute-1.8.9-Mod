@@ -1,7 +1,4 @@
-package alice.cute.setting.slider;
-
-import alice.cute.setting.Setting;
-import alice.cute.setting.SettingType;
+package alice.cute.setting;
 
 public class Slider extends Setting
 {

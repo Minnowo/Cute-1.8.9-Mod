@@ -52,15 +52,12 @@ public class Frame
 		this.isDragging = false;
 		this.color  	= new Color(128, 128, 128);
 		
-		System.out.println("frame constructor");
-		
 		int tY = this.barHeight;
 
 		for (Module mod : ModuleManager.getModulesInCategory(category)) 
 		{
 			Button modButton = new Button(mod, this, tY);
 			this.components.add(modButton);
-			System.out.println(this.components.get(0));
 			tY += 12;
 		}
 	}

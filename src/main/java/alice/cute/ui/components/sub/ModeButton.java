@@ -9,9 +9,10 @@ package alice.cute.ui.components.sub;
 
 import alice.cute.ui.components.Component;
 import alice.cute.util.FontUtil;
+import alice.cute.util.RenderUtil;
 import alice.cute.ui.components.Button;
+import alice.cute.setting.Mode;
 import alice.cute.setting.Setting;
-import alice.cute.setting.mode.Mode;
 import alice.cute.module.Module;
 
 
@@ -44,24 +45,31 @@ public class ModeButton extends Component {
 	}
 	
 	@Override
+	public int getHeight() 
+	{
+		if(this.open) 
+		{
+			return (this.height * (this.subcomponents.size() + 1));
+		}
+		
+		return this.height;
+	}
+	
+	
+	@Override
 	public void setOff(int newOff) 
 	{
-		offset = newOff;
+		this.offset = newOff;
 	}
 	
 	@Override
 	public void renderComponent() 
 	{
-
-		int x = this.parent.parent.getX();
-		int y = this.parent.parent.getY() + this.offset;
-		int width = this.parent.parent.getWidth();
-		
-		int color = hovered ? 0x99000000 : 0x88000000;
-		
-
-		Gui.drawRect(x, y, x + width , y + this.height, color);
-		Gui.drawRect(x              , y, x + 2     , y + 12         , color);
+		RenderUtil.beginRenderRect();
+		RenderUtil.setColor(this.backColor);
+		RenderUtil.renderRect(x, y, x + width, y + this.height);
+		RenderUtil.renderRect(x, y, x + 2    , y + 12         );
+		RenderUtil.endRenderRect();
 		
 //		this makes the text rendered below fit in the box
 		GL11.glPushMatrix();
@@ -96,7 +104,7 @@ public class ModeButton extends Component {
 	@Override
 	public void mouseClicked(int mouseX, int mouseY, int button) 
 	{
-		if(button != 0 || !this.parent.open || !isMouseOnButton(mouseX, mouseY))
+		if(button != 0 || !this.parent.isOpen() || !isMouseOnButton(mouseX, mouseY))
 			return;
 		
 		this.setting.nextMode();

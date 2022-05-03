@@ -4,7 +4,6 @@ public class SubSetting
 {
 	protected Setting  _parent;
 	protected String   _name;
-	
 
 	public String getName() 
 	{

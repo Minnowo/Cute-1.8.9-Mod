@@ -1,9 +1,7 @@
-package alice.cute.setting.mode;
+package alice.cute.setting;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import alice.cute.setting.*;
 
 public class Mode extends Setting
 {

@@ -1,7 +1,4 @@
-package alice.cute.setting.keybind;
-
-import alice.cute.setting.Setting;
-import alice.cute.setting.SettingType;
+package alice.cute.setting;
 
 public class Keybind extends Setting
 {

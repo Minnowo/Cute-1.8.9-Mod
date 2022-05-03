@@ -1,13 +1,6 @@
-package alice.cute.setting.color;
+package alice.cute.setting;
 
 import java.awt.Color;
-
-import alice.cute.setting.Setting;
-import alice.cute.setting.SubSetting;
-import alice.cute.setting.checkbox.Checkbox;
-import alice.cute.setting.keybind.Keybind;
-import alice.cute.setting.mode.Mode;
-import alice.cute.setting.slider.Slider;
 
 public class ColorPicker extends SubSetting
 {
@@ -55,21 +48,57 @@ public class ColorPicker extends SubSetting
         return this._color.getRed();
     }
 
+    public void setRed(int r)
+    {
+    	this._color = new Color(
+    			r,
+    			this._color.getGreen(),
+    			this._color.getBlue(),
+    			this._color.getAlpha());
+    }
+    
     public int getGreen() 
     {
         return this._color.getGreen();
     }
 
+    public void setGreen(int g)
+    {
+    	this._color = new Color(
+    			this._color.getRed(),
+    			g,
+    			this._color.getBlue(),
+    			this._color.getAlpha());
+    }
+    
     public int getBlue() 
     {
         return this._color.getBlue();
     }
 
+    public void setBlue(int b)
+    {
+    	this._color = new Color(
+    			this._color.getRed(),
+    			this._color.getGreen(),
+    			b,
+    			this._color.getAlpha());
+    }
+    
     public int getAlpha() 
     {
         return this._color.getAlpha();
     }
 
+    public void setAlpha(int a)
+    {
+    	this._color = new Color(
+    			this._color.getRed(),
+    			this._color.getGreen(),
+    			this._color.getBlue(),
+    			a);
+    }
+    
     public void setColor(Color color) 
     {
         this._color = color;

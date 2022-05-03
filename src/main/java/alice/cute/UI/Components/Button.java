@@ -4,35 +4,21 @@ package alice.cute.ui.components;
 import java.awt.*;
 import java.util.ArrayList;
 
-//import me.peanut.hydrogen.module.Module;
-//import me.peanut.hydrogen.ui.clickgui.component.components.sub.*;
-//import me.peanut.hydrogen.ui.clickgui.component.components.sub.CheckboxButton;
-//import me.peanut.hydrogen.font.FontHelper;
-//import me.peanut.hydrogen.font.FontUtil;
-//import me.peanut.hydrogen.utils.RenderUtil;
-//import me.peanut.hydrogen.utils.Utils;
-//import me.peanut.hydrogen.Hydrogen;
-//import me.peanut.hydrogen.ui.clickgui.ClickGui;
-//import me.peanut.hydrogen.ui.clickgui.component.Component;
-//import me.peanut.hydrogen.ui.clickgui.component.Frame;
-//import me.peanut.hydrogen.settings.Setting;
-
 import alice.cute.module.Module;
-
+import alice.cute.setting.Checkbox;
+import alice.cute.setting.ColorPicker;
+import alice.cute.setting.Keybind;
+import alice.cute.setting.Mode;
 import alice.cute.setting.Setting;
-import alice.cute.setting.checkbox.Checkbox;
-import alice.cute.setting.slider.Slider;
 import alice.cute.ui.ClickUI;
 import alice.cute.ui.components.sub.CheckboxButton;
+import alice.cute.ui.components.sub.ColorPickerButton;
 import alice.cute.ui.components.sub.KeybindButton;
 import alice.cute.ui.components.sub.ModeButton;
 import alice.cute.ui.components.sub.SliderButton;
-import alice.cute.setting.color.ColorPicker;
-import alice.cute.setting.mode.Mode;
-import alice.cute.setting.keybind.Keybind;
-
 import alice.cute.setting.SettingType;
-
+import alice.cute.setting.Slider;
+import alice.cute.setting.SubSetting;
 import alice.cute.util.RenderUtil;
 import alice.cute.util.FontUtil;
 import net.minecraft.client.Minecraft;
@@ -45,10 +31,6 @@ public class Button extends Component
 
 	public int offset;
 	
-	private boolean isHovered;
-	public boolean open;
-	
-	
 	public Button(Module mod, Frame parent, int offset) 
 	{
 		this.mod    = mod;
@@ -57,34 +39,66 @@ public class Button extends Component
 		this.subcomponents = new ArrayList<Component>();
 		this.open = false;
 		
-		int opY = offset + this.height;
+		int opY  = offset + this.height;
+		int opY2 = offset + this.height;
+		
+		Component last ;
 		
 		for(Setting s : mod.getSettings())
 		{
 			switch(s.getSettingType())
 			{
 				default:
-					break;
+					System.out.println(s.getName());
+					continue;
+					
 				case CHECKBOX:
-					this.subcomponents.add(new CheckboxButton((Checkbox)s, this, opY));
+					last = new CheckboxButton((Checkbox)s, this, opY);
+					this.subcomponents.add(last);
 					opY += this.height;
 					break;
 					
 				case SLIDER:
+					last = new SliderButton((Slider)s, this, opY);
 					this.subcomponents.add(new SliderButton((Slider)s, this, opY));
 					opY += this.height;
 					break;
 					
 				case MODE:
-					this.subcomponents.add(new ModeButton((Mode)s, this, opY));
+					last = new ModeButton((Mode)s, this, opY);
+					this.subcomponents.add(last);
 					opY += this.height;
 					break;
+			}
+			
+			opY2 = opY;
+			
+			for(SubSetting ss : s.getSubSettings())
+			{
+				last.subcomponents.add(new ColorPickerButton((ColorPicker)ss, this, opY2));	
+				opY2 += this.height;
 			}
 		}
 		
 		this.subcomponents.add(new KeybindButton(this, opY));
 	}
 
+
+	@Override
+	public int getHeight() 
+	{
+		if(this.open) 
+		{
+			int h = this.height;
+			for(Component c : this.subcomponents)
+			{
+				h += c.getHeight();
+			}
+			return h;
+		}
+		
+		return this.height;
+	}
 
 	@Override
 	public void setOff(int newOff) 
@@ -96,7 +110,7 @@ public class Button extends Component
 		for(Component comp : this.subcomponents) 
 		{
 			comp.setOff(opY);
-			opY += this.height;
+			opY += comp.getHeight();
 		}
 	}
 	
@@ -108,15 +122,13 @@ public class Button extends Component
 		int x2 = x + this.parent.getWidth();
 		int y2 = y + this.height;
 		
-		Color c = new Color(200, 100, 100);
-		
 		RenderUtil.beginRenderRect();
 		RenderUtil.setColor(this.backColor);
 		RenderUtil.renderRect(x, y, x2, y2);
 		RenderUtil.setColor(this.sliderColor);
 		RenderUtil.renderRect(x, y, x2, y2);
 		
-		if(this.isHovered)
+		if(this.hovered)
 		{
 			RenderUtil.renderRect(x, y, x2, y2);
 		}
@@ -151,22 +163,12 @@ public class Button extends Component
 		RenderUtil.renderRectSingle(x + 2, y2, x + 3, y + ((this.subcomponents.size() + 1) * this.height));
 	}
 	
-	@Override
-	public int getHeight() 
-	{
-		if(this.open) 
-		{
-			return (12 * (this.subcomponents.size() + 1));
-		}
-		
-		return 12;
-	}
 	
 	
 	@Override
 	public void updateComponent(int mouseX, int mouseY) 
 	{
-		 this.isHovered = isMouseOnButton(mouseX, mouseY);
+		 this.hovered = isMouseOnButton(mouseX, mouseY);
 		
 		if(this.subcomponents.isEmpty())
 			return;

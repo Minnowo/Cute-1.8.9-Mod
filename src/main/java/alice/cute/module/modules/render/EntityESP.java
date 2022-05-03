@@ -6,10 +6,10 @@ import org.lwjgl.opengl.GL11;
 
 import alice.cute.module.Module;
 import alice.cute.module.Category;
-import alice.cute.setting.checkbox.Checkbox;
-import alice.cute.setting.color.ColorPicker;
-import alice.cute.setting.mode.Mode;
-import alice.cute.setting.slider.Slider;
+import alice.cute.setting.Checkbox;
+import alice.cute.setting.ColorPicker;
+import alice.cute.setting.Mode;
+import alice.cute.setting.Slider;
 import alice.cute.util.Util;
 import alice.cute.util.render.ESPUtil;
 import alice.cute.util.world.EntityUtil;
@@ -60,10 +60,10 @@ public class EntityESP extends Module
     public static ColorPicker mobsPicker = new ColorPicker(mobs, "Mob Picker", new Color(131, 19, 199));
 
     public static Checkbox neutral = new Checkbox("Neutral Creatures", true);
-    public static ColorPicker neutralPicker = new ColorPicker(mobs, "Neutral Picker", new Color(255, 255, 255));
+    public static ColorPicker neutralPicker = new ColorPicker(neutral, "Neutral Picker", new Color(255, 255, 255));
     
     public static Checkbox vehicles = new Checkbox("Vehicles", true);
-    public static ColorPicker vehiclesPicker = new ColorPicker(mobs, "Vehicle Picker", new Color(0, 255, 255));
+    public static ColorPicker vehiclesPicker = new ColorPicker(vehicles, "Vehicle Picker", new Color(0, 255, 255));
     
     public static Checkbox items = new Checkbox("Items", true);
     public static ColorPicker itemsPicker = new ColorPicker(items, "Item Picker", new Color(199, 196, 19));

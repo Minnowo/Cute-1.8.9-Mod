@@ -10,9 +10,9 @@ import org.lwjgl.util.glu.Cylinder;
 
 import alice.cute.module.Module;
 import alice.cute.module.Category;
-import alice.cute.setting.checkbox.Checkbox;
-import alice.cute.setting.color.ColorPicker;
-import alice.cute.setting.slider.Slider;
+import alice.cute.setting.Checkbox;
+import alice.cute.setting.ColorPicker;
+import alice.cute.setting.Slider;
 import alice.cute.util.Util;
 import alice.cute.util.render.ESPUtil;
 import alice.cute.util.world.EntityUtil;

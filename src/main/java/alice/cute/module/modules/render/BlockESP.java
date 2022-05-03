@@ -7,10 +7,11 @@ import alice.cute.Reference;
 import alice.cute.module.Module;
 import alice.cute.module.Category;
 import alice.cute.module.modules.render.VirtualBlock;
-import alice.cute.setting.checkbox.Checkbox;
-import alice.cute.setting.slider.Slider;
+import alice.cute.setting.Checkbox;
+import alice.cute.setting.Slider;
 import alice.cute.util.Util;
 import alice.cute.util.render.ESPUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

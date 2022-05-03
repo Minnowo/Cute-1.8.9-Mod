@@ -1,9 +1,6 @@
-package alice.cute.setting.checkbox;
+package alice.cute.setting;
 
-import alice.cute.setting.Setting;
-import alice.cute.setting.SettingType;
-
-public class Checkbox extends Setting
+public class Checkbox extends Setting 
 {
 	private boolean _checked;
 
@@ -24,7 +21,7 @@ public class Checkbox extends Setting
 	{
 		return this._name;
 	}
-
+	
 	public boolean getValue() 
 	{
 		return this._checked;

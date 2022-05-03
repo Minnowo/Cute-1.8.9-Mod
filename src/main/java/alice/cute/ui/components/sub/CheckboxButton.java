@@ -1,13 +1,7 @@
 package alice.cute.ui.components.sub;
 
 
-//import me.peanut.hydrogen.font.FontHelper;
-//import me.peanut.hydrogen.Hydrogen;
-//import me.peanut.hydrogen.ui.clickgui.component.Component;
-//import me.peanut.hydrogen.ui.clickgui.component.components.Button;
-//import me.peanut.hydrogen.settings.Setting;
-
-import alice.cute.setting.checkbox.Checkbox;
+import alice.cute.setting.Checkbox;
 import alice.cute.ui.components.Button;
 import alice.cute.ui.components.Component;
 import alice.cute.util.FontUtil;
@@ -19,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CheckboxButton extends Component 
 {
@@ -31,9 +26,10 @@ public class CheckboxButton extends Component
 	private int x;
 	private int y;
 	
-	public CheckboxButton(Checkbox option, Button button, int offset) 
+	public CheckboxButton(Checkbox ss, Button button, int offset) 
 	{
-		this.setting = option;
+		this.subcomponents = new ArrayList<Component>();
+		this.setting = ss;
 		this.parent = button;
 		this.x = button.parent.getX() + button.parent.getWidth();
 		this.y = button.parent.getY() + button.offset;
@@ -73,28 +69,91 @@ public class CheckboxButton extends Component
 				this.textColorInt);
 		
 		GL11.glPopMatrix();
+		
+		
+		if(!this.open)
+			return;
+		
+		if (this.subcomponents.isEmpty())
+			return;
+	
+		for (Component comp : this.subcomponents) 
+		{
+			comp.renderComponent();
+		}
 	}
+	
+	@Override
+	public int getHeight() 
+	{
+		return this.height;
+	}
+	
 	
 	@Override
 	public void setOff(int newOff) 
 	{
-		offset = newOff;
+		this.offset = newOff;
+
+		int opY = newOff + this.height;
+		
+		for(Component comp : this.subcomponents) 
+		{
+			comp.setOff(opY);
+			opY += comp.getHeight();
+		}
 	}
-	
+
 	@Override
 	public void updateComponent(int mouseX, int mouseY) 
 	{
 		this.hovered = isMouseOnButton(mouseX, mouseY);
 		this.y = parent.parent.getY() + offset;
 		this.x = parent.parent.getX();
+		
+		if(this.subcomponents.isEmpty())
+			return;
+		
+		for(Component comp : this.subcomponents) 
+		{
+			comp.updateComponent(mouseX, mouseY);
+		}
 	}
+	
+	
+	@Override
+	public void mouseReleased(int mouseX, int mouseY, int mouseButton) 
+	{
+		for(Component comp : this.subcomponents) 
+		{
+			comp.mouseReleased(mouseX, mouseY, mouseButton);
+		}
+	}
+	
 	
 	@Override
 	public void mouseClicked(int mouseX, int mouseY, int button) 
 	{
-		if(isMouseOnButton(mouseX, mouseY) && button == 0 && this.parent.open) 
+		if(!this.parent.isOpen())
+			return;
+		
+		if(isMouseOnButton(mouseX, mouseY))
 		{
-			this.setting.toggleValue();
+			if(button == 0) 
+			{
+				this.setting.toggleValue();
+			}
+			else if(button == 1)
+			{
+				this.open = !this.open;
+				this.parent.parent.refresh();
+			}
+		}
+		
+		
+		for(Component comp : this.subcomponents) 
+		{
+			comp.mouseClicked(mouseX, mouseY, button);
 		}
 	}
 	

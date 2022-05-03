@@ -4,9 +4,10 @@ package alice.cute.ui.components.sub;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import alice.cute.setting.Setting;
-import alice.cute.setting.slider.Slider;
+import alice.cute.setting.Slider;
 import alice.cute.ui.components.Button;
 import alice.cute.ui.components.Component;
 import alice.cute.util.FontUtil;
@@ -32,11 +33,34 @@ public class SliderButton extends Component
 	
 	public SliderButton(Slider value, Button button, int offset) 
 	{
+		this.subcomponents = new ArrayList<Component>();
 		this.setting = value;
 		this.parent = button;
 		this.x = button.parent.getX() + button.parent.getWidth();
 		this.y = button.parent.getY() + button.offset;
 		this.offset = offset;
+		
+		double min = this.setting.getMinValue();
+		double max = this.setting.getMaxValue();
+		this.renderWidth = (this.parent.parent.width) * (this.setting.getValue() - min) / (max - min);
+	}
+	
+	@Override
+	public int getHeight() 
+	{
+		if(this.open) 
+		{
+			return (this.height * (this.subcomponents.size() + 1));
+		}
+		
+		return this.height;
+	}
+	
+	
+	@Override
+	public void setOff(int newOff) 
+	{
+		this.offset = newOff;
 	}
 	
 	@Override
@@ -64,8 +88,8 @@ public class SliderButton extends Component
 		
 		FontUtil.drawStringWithShadow(
 				this.setting.getName() + " ", 
-				(parent.parent.getX() * 1.333333333333f + 9), 
-				(parent.parent.getY() + offset + 2) * 1.33333333333333f + 2, 
+				(x * 1.333333333333f + 9), 
+				(y + 2) * 1.33333333333333f + 2, 
 				this.textColorInt);
 		
 		FontUtil.drawStringWithShadow(
@@ -78,20 +102,16 @@ public class SliderButton extends Component
 		GL11.glPopMatrix();
 	}
 
-	@Override
-	public void setOff(int newOff) 
-	{
-		offset = newOff;
-	}
 	
 	@Override
 	public void updateComponent(int mouseX, int mouseY) 
 	{
-		this.hovered = isMouseOnButtonD(mouseX, mouseY) || isMouseOnButtonI(mouseX, mouseY);
+		this.hovered = isMouseOnButton(mouseX, mouseY);
 		this.y = parent.parent.getY() + offset;
 		this.x = parent.parent.getX();
 		
-		int width = this.parent.parent.getWidth();
+		if (!dragging)
+			return;
 		
 		double diff = Math.min(width, Math.max(0, mouseX - this.x));
 
@@ -100,8 +120,6 @@ public class SliderButton extends Component
 		
 		this.renderWidth = (this.parent.parent.width) * (this.setting.getValue() - min) / (max - min);
 		
-		if (!dragging)
-			return;
 		
 		if (diff == 0) 
 		{
@@ -117,18 +135,10 @@ public class SliderButton extends Component
 	@Override
 	public void mouseClicked(int mouseX, int mouseY, int button) 
 	{
-		if(!this.parent.open)
+		if(!this.parent.isOpen() || button != 0 || !isMouseOnButton(mouseX, mouseY))
 			return;
 		
-		if(isMouseOnButtonD(mouseX, mouseY) && button == 0) 
-		{
-			dragging = true;
-		}
-		
-		if(isMouseOnButtonI(mouseX, mouseY) && button == 0) 
-		{
-			dragging = true;
-		}
+		dragging = true;	
 	}
 	
 	@Override
@@ -137,21 +147,21 @@ public class SliderButton extends Component
 		dragging = false;
 	}
 	
-	public boolean isMouseOnButtonD(int x, int y) 
+	public boolean isMouseOnButton(int x, int y) 
 	{
 		return x > this.x && 
-			   x < this.x + (this.width / 2 + 1) &&
+			   x < this.x + this.width  &&
 			   y > this.y && 
 			   y < this.y + this.height;
 	}
 	
-	public boolean isMouseOnButtonI(int x, int y) 
-	{
-		return x > this.x + this.width / 2 && 
-			   x < this.x + this.width &&
-			   y > this.y && 
-			   y < this.y + this.height;
-	}
+//	public boolean isMouseOnButtonI(int x, int y) 
+//	{
+//		return x > this.x + this.width / 2 && 
+//			   x < this.x + this.width &&
+//			   y > this.y && 
+//			   y < this.y + this.height;
+//	}
 }
 
 

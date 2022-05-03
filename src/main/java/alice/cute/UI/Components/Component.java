@@ -1,9 +1,15 @@
 package alice.cute.ui.components;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Component 
 {
+	public ArrayList<Component> subcomponents;
+	
+	protected boolean hovered;
+	protected boolean open;
+	
 	protected final int height = 12;
 	protected final int width  = 88;
 	
@@ -20,6 +26,20 @@ public class Component
 	protected Color backColor   = new Color(17, 17, 17, 140);
 	protected Color sliderColor = new Color(128, 00, 0, 128);
 	
+	protected Color red  = new Color(240, 0, 0);
+	protected Color green = new Color(0, 240, 0);
+	protected Color blue = new Color(0, 0, 240);
+	
+	
+	public boolean isOpen()
+	{
+		return this.open;
+	}
+	
+	public boolean isHovered()
+	{
+		return this.hovered;
+	}
 	
 	public void renderComponent() 
 	{

@@ -35,9 +35,21 @@ public class KeybindButton extends Component
 	}
 	
 	@Override
+	public int getHeight() 
+	{
+		if(this.open) 
+		{
+			return (this.height * (this.subcomponents.size() + 1));
+		}
+		
+		return this.height;
+	}
+	
+	
+	@Override
 	public void setOff(int newOff) 
 	{
-		offset = newOff;
+		this.offset = newOff;
 	}
 	
 	@Override
@@ -83,7 +95,7 @@ public class KeybindButton extends Component
 	@Override
 	public void mouseClicked(int mouseX, int mouseY, int button) 
 	{
-		if(this.parent.open && button == 0 && isMouseOnButton(mouseX, mouseY)) 
+		if(this.parent.isOpen() && button == 0 && isMouseOnButton(mouseX, mouseY)) 
 		{
 			this.binding = !this.binding;
 		} 
