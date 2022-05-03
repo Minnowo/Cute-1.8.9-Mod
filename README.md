@@ -11,6 +11,7 @@ This mod aims to be client-side only, and also doesn't use any mixins (that i'm 
 - Entity ESP
 - Tracers 
 - No Render (disabled fog only)
+- Full bright
 - Projectile Tracers
 
 ### Modding Setup
