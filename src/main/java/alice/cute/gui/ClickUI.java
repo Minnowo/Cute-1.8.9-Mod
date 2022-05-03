@@ -1,4 +1,4 @@
-package alice.cute.ui;
+package alice.cute.gui;
 
 
 
@@ -9,9 +9,9 @@ import java.util.Collections;
 
 import alice.cute.managers.ModuleManager;
 import alice.cute.module.*;
-import alice.cute.ui.components.Button;
-import alice.cute.ui.components.Component;
-import alice.cute.ui.components.Frame;
+import alice.cute.gui.components.Button;
+import alice.cute.gui.components.Component;
+import alice.cute.gui.components.Frame;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.client.gui.GuiScreen;

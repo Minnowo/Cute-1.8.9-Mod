@@ -1,4 +1,4 @@
-package alice.cute.ui.components.sub;
+package alice.cute.gui.components.sub;
 
 
 //https://github.com/GandyT/GandyClient-2.0/
@@ -15,8 +15,8 @@ import net.minecraft.client.gui.Gui;
 import alice.cute.setting.Checkbox;
 import alice.cute.setting.ColorPicker;
 import alice.cute.setting.Mode;
-import alice.cute.ui.components.Button;
-import alice.cute.ui.components.Component;
+import alice.cute.gui.components.Button;
+import alice.cute.gui.components.Component;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
 import alice.cute.util.Util;

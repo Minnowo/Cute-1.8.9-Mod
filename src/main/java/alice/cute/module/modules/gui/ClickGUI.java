@@ -4,7 +4,7 @@ package alice.cute.module.modules.gui;
 import alice.cute.module.Module;
 import alice.cute.setting.Mode;
 import alice.cute.module.Category;
-import alice.cute.ui.ClickUI;
+import alice.cute.gui.ClickUI;
 import alice.cute.util.Util;
 
 public class ClickGUI extends Module

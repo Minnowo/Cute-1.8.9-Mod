@@ -1,4 +1,4 @@
-package alice.cute.ui.components.sub;
+package alice.cute.gui.components.sub;
 
 
 import java.awt.*;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import alice.cute.setting.Setting;
 import alice.cute.setting.Slider;
-import alice.cute.ui.components.Button;
-import alice.cute.ui.components.Component;
+import alice.cute.gui.components.Button;
+import alice.cute.gui.components.Component;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
 import alice.cute.util.Util;

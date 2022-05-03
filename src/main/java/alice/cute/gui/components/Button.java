@@ -1,27 +1,23 @@
-package alice.cute.ui.components;
+package alice.cute.gui.components;
 
 
-import java.awt.*;
 import java.util.ArrayList;
 
+import alice.cute.gui.ClickUI;
+import alice.cute.gui.components.sub.CheckboxButton;
+import alice.cute.gui.components.sub.ColorPickerButton;
+import alice.cute.gui.components.sub.KeybindButton;
+import alice.cute.gui.components.sub.ModeButton;
+import alice.cute.gui.components.sub.SliderButton;
 import alice.cute.module.Module;
 import alice.cute.setting.Checkbox;
 import alice.cute.setting.ColorPicker;
-import alice.cute.setting.Keybind;
 import alice.cute.setting.Mode;
 import alice.cute.setting.Setting;
-import alice.cute.ui.ClickUI;
-import alice.cute.ui.components.sub.CheckboxButton;
-import alice.cute.ui.components.sub.ColorPickerButton;
-import alice.cute.ui.components.sub.KeybindButton;
-import alice.cute.ui.components.sub.ModeButton;
-import alice.cute.ui.components.sub.SliderButton;
-import alice.cute.setting.SettingType;
 import alice.cute.setting.Slider;
 import alice.cute.setting.SubSetting;
-import alice.cute.util.RenderUtil;
 import alice.cute.util.FontUtil;
-import net.minecraft.client.Minecraft;
+import alice.cute.util.RenderUtil;
 
 public class Button extends Component 
 {
