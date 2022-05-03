@@ -1,6 +1,8 @@
 package alice.cute.util;
 
 import java.awt.Color;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -47,4 +49,23 @@ public class Util
         
         return new Color(44, 186, 19);
     }
+	
+
+	public static double roundToPlace(double value, int places) 
+	{
+        if (places < 0) 
+        {
+            throw new IllegalArgumentException();
+        }
+        
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+	
 }
+
+
+
+
+

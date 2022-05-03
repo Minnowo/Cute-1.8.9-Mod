@@ -24,6 +24,7 @@ import alice.cute.setting.checkbox.Checkbox;
 import alice.cute.setting.slider.Slider;
 import alice.cute.ui.ClickUI;
 import alice.cute.ui.components.sub.CheckboxButton;
+import alice.cute.ui.components.sub.KeybindButton;
 import alice.cute.ui.components.sub.ModeButton;
 import alice.cute.ui.components.sub.SliderButton;
 import alice.cute.setting.color.ColorPicker;
@@ -41,17 +42,8 @@ public class Button extends Component
 	public final Module mod;
 	public final Frame parent;
 	public final ArrayList<Component> subcomponents;
-	
-	public Color color;
-	public Color colorHover;
-	public Color colorEnabled;
-	public Color colorEnabledHovered;
-	public final int fontColor = new Color(255, 255, 233).getRGB();
 
-	
 	public int offset;
-	private	int tooltipX;
-	private int tooltipY;
 	
 	private boolean isHovered;
 	public boolean open;
@@ -65,18 +57,14 @@ public class Button extends Component
 		this.subcomponents = new ArrayList<Component>();
 		this.open = false;
 		
-		this.color               = new Color(51, 0, 0);
-		this.colorEnabledHovered = new Color(32, 0, 0);
-		this.colorEnabled        = new Color(64, 0, 0);
-		this.colorHover          = new Color(48, 0, 0);
-		
-		
 		int opY = offset + this.height;
 		
 		for(Setting s : mod.getSettings())
 		{
 			switch(s.getSettingType())
 			{
+				default:
+					break;
 				case CHECKBOX:
 					this.subcomponents.add(new CheckboxButton((Checkbox)s, this, opY));
 					opY += this.height;
@@ -91,43 +79,13 @@ public class Button extends Component
 					this.subcomponents.add(new ModeButton((Mode)s, this, opY));
 					opY += this.height;
 					break;
-					
-				case KEYBIND:
-//					this.subcomponents.add(new TextButton(s, this, mod, opY));
-					opY += this.height;
-					break;
 			}
 		}
 		
-//		this.subcomponents.add(new VisibleButton(this, mod, opY));
-//		this.subcomponents.add(new KeybindButton(this, opY));
+		this.subcomponents.add(new KeybindButton(this, opY));
 	}
 
-	public void updateTooltipPosition(int mouseX, int mouseY) 
-	{
-		tooltipX = mouseX + 18;
-		tooltipY = mouseY - 18;
-	}
 
-//	public void renderTooltip(String name) 
-//	{
-////		boolean ttf = Hydrogen.getClient().settingsManager.getSettingByName("Font Type").getMode().equalsIgnoreCase("TTF");
-////		if(ttf) {
-////			RenderUtil.drawBorderedCorneredRect(parent.getWidth() / 2 + tooltipX - 54, this.parent.barHeight + tooltipY - 3, parent.getWidth() / 2 + tooltipX + FontHelper.sf_l.getStringWidth(name) - 47, this.parent.barHeight + tooltipY + 12, 2, 0x95000000, 0x80000000);
-////			FontHelper.sf_l.drawStringWithShadow(name, parent.getWidth() / 2 + tooltipX - 50, (this.parent.barHeight + tooltipY) - 2, Color.white);
-////
-////			RenderUtil.startClip(parent.getWidth() / 2 + tooltipX - 54, this.parent.barHeight + tooltipY - 3, parent.getWidth() / 2 + tooltipX + FontHelper.sf_l.getStringWidth(name) - 45, this.parent.barHeight + tooltipY + 12);
-////		} else {
-//
-//		
-//		RenderUtil.drawBorderedCorneredRect(parent.getWidth() / 2 + tooltipX - 54, this.parent.barHeight + tooltipY - 3, parent.getWidth() / 2 + tooltipX + Minecraft.getMinecraft().fontRendererObj.getStringWidth(name) - 45, this.parent.barHeight + tooltipY + 12, 2, 0x95000000, 0x80000000);
-//		Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(name, parent.getWidth() / 2 + tooltipX - 50, (this.parent.barHeight + tooltipY), -1);
-//
-//		RenderUtil.startClip(parent.getWidth() / 2 + tooltipX - 54, this.parent.barHeight + tooltipY - 3, parent.getWidth() / 2 + tooltipX + Minecraft.getMinecraft().fontRendererObj.getStringWidth(name) - 45, this.parent.barHeight + tooltipY + 12);
-//	
-//		RenderUtil.endClip();
-//	}
-	
 	@Override
 	public void setOff(int newOff) 
 	{
@@ -150,36 +108,31 @@ public class Button extends Component
 		int x2 = x + this.parent.getWidth();
 		int y2 = y + this.height;
 		
+		Color c = new Color(200, 100, 100);
+		
 		RenderUtil.beginRenderRect();
-		RenderUtil.renderRect(x, y, x2, y2, this.color);
-		RenderUtil.renderRect(x, y, x2, y2, this.color);
+		RenderUtil.setColor(this.backColor);
+		RenderUtil.renderRect(x, y, x2, y2);
+		RenderUtil.setColor(this.sliderColor);
+		RenderUtil.renderRect(x, y, x2, y2);
 		
-		if(this.mod.isEnabled() && this.isHovered) 
+		if(this.isHovered)
 		{
-			RenderUtil.renderRect(x, y, x2, y2, this.colorEnabledHovered);	
-		}
-
-		if(this.mod.isEnabled()) 
-		{
-			RenderUtil.renderRect(x, y, x2, y2, this.colorEnabledHovered);	
-		}
-
-		if(this.isHovered) 
-		{
-			RenderUtil.renderRect(x, y, x2, y2, this.colorHover);	
+			RenderUtil.renderRect(x, y, x2, y2);
 		}
 		
+		if(this.mod.isEnabled())
+		{
+			RenderUtil.renderRect(x, y, x2, y2);
+		}
+
 		RenderUtil.endRenderRect();
 		
 		FontUtil.drawTotalCenteredStringWithShadowMC(
 				this.mod.getName(), 
 				x + this.parent.getWidth() / 2, 
 				y + (int)(this.height / 2) + 1, 
-				this.fontColor);
-
-
-//		if(this.subcomponents.size() > 2)
-//			FontHelper.sf_l.drawStringWithShadow(this.open ? "v" : "§f>", (parent.getX() + parent.getWidth() - 10), (parent.getY() + offset), new Color(255, 230, 181));
+				this.textColorInt);
 
 		
 		if(!this.open)
@@ -194,12 +147,8 @@ public class Button extends Component
 		}
 		
 		
-		RenderUtil.renderRectSingle(x + 2, y2, x + 3, y + ((this.subcomponents.size() + 1) * this.height), ClickUI.color);
-		
-
-//		if(this.isHovered && Hydrogen.getClient().settingsManager.getSettingByName("Tooltip").isEnabled()) {
-//			renderTooltip(mod.getDescription());
-//		}
+		RenderUtil.setColor(ClickUI.color);
+		RenderUtil.renderRectSingle(x + 2, y2, x + 3, y + ((this.subcomponents.size() + 1) * this.height));
 	}
 	
 	@Override
@@ -217,12 +166,7 @@ public class Button extends Component
 	@Override
 	public void updateComponent(int mouseX, int mouseY) 
 	{
-		// this.isHovered = isMouseOnButton(mouseX, mouseY);
-		
-//		if(Hydrogen.getClient().settingsManager.getSettingByName("Tooltip").isEnabled()) 
-//		{
-//			updateTooltipPosition(mouseX, mouseY);
-//		}
+		 this.isHovered = isMouseOnButton(mouseX, mouseY);
 		
 		if(this.subcomponents.isEmpty())
 			return;

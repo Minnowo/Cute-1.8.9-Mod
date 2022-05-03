@@ -88,6 +88,11 @@ public class Module implements IMixin
 		this._key.setKeyCode(key);
 	}
 	
+	public void unbindKey()
+	{
+		this._key.setKeyCode(Keyboard.KEY_NONE);
+	}
+	
 	public void setKeyDown(boolean b) 
 	{
 		this._isKeyDown = b;

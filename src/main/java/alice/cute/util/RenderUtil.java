@@ -70,27 +70,25 @@ public class RenderUtil
 	 	
 	 	
 	 	// renders a single rectangle
-	 	public static void renderRectSingle(float x1, float y1, float x2, float y2, Color c)
+	 	public static void renderRectSingle(float x1, float y1, float x2, float y2)
 	 	{
 	 		beginRenderRect();
-	 		renderRect(x1, y1, x2, y2, c);
+	 		renderRect(x1, y1, x2, y2);
 	 		endRenderRect();
 	 	}
 	 	
 	 	// renders a single rectangle
-	 	public static void renderRectSingle(double x1, double y1, double x2, double y2, Color c) 
+	 	public static void renderRectSingle(double x1, double y1, double x2, double y2) 
 	    {
 	 		beginRenderRect();
-	 		renderRect(x1, y1, x2, y2, c);
+	 		renderRect(x1, y1, x2, y2);
 	 		endRenderRect();
 	 	}
 	 	
 		// renders a rectangle on an existing matrix, 
 		// this should only be used after the use of 'beginRenderRect' or something similar
-	    public static void renderRect(float x1, float y1, float x2, float y2, Color c) 
+	    public static void renderRect(float x1, float y1, float x2, float y2) 
 	    {
-	        setColor(c);
-
 	        GL11.glBegin(GL11.GL_QUADS);
 	        GL11.glVertex2d(x2, y1);
 	        GL11.glVertex2d(x1, y1);
@@ -101,10 +99,8 @@ public class RenderUtil
 
 	    // renders a rectangle on an existing matrix, 
  		// this should only be used after the use of 'beginRenderRect' or something similar
-	    public static void renderRect(double x1, double y1, double x2, double y2, Color c) 
+	    public static void renderRect(double x1, double y1, double x2, double y2) 
 	    {
-	    	setColor(c);
-	     
 	        GL11.glBegin(GL11.GL_QUADS);
 	        GL11.glVertex2d(x2, y1);
 	        GL11.glVertex2d(x1, y1);

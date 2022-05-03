@@ -11,21 +11,22 @@ import alice.cute.ui.components.Button;
 import alice.cute.ui.components.Component;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
+import alice.cute.util.Util;
 
 import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
 
 public class SliderButton extends Component 
 {
+	private final Button parent;
+	private final Slider setting;
 
 	private boolean hovered;
-
-	private final Slider setting;
-	private final Button parent;
+	private boolean dragging = false;
+	
 	private int offset;
 	private int x;
 	private int y;
-	private boolean dragging = false;
 
 	private double renderWidth;
 	
@@ -41,28 +42,21 @@ public class SliderButton extends Component
 	@Override
 	public void renderComponent() 
 	{
-
-		Color c1 = new Color(17, 17, 17, 140); // 0x88111111
-		Color c2 = new Color(0, 0, 0, 115); // 0x77000000
-		Color c3 = new Color(34, 34, 34, 140); // 0x88222222
-
-		Color notHover = new Color(136, 0, 0);
-		
-		int x = this.parent.parent.getX();
-		int y = this.parent.parent.getY() + this.offset;
-		int width = this.parent.parent.getWidth();
-		String displaValue = String.valueOf(roundToPlace(this.setting.getValue(), 2));
+		String displaValue = String.valueOf(Util.roundToPlace(this.setting.getValue(), 2));
 		
 		RenderUtil.beginRenderRect();
-		RenderUtil.renderRect(x + 2, y, x + width                , y + this.height, notHover);
-		RenderUtil.renderRect(x + 2, y, x + (int)this.renderWidth, y + this.height, notHover);
-		
+		RenderUtil.setColor(this.backColor);
+		RenderUtil.renderRect(x + 2, y, x + width, y + this.height);
+		RenderUtil.renderRect(x, y, x + 2, y + this.height);
+		RenderUtil.setColor(this.sliderColor);
+		RenderUtil.renderRect(x + 2, y, x + (int)this.renderWidth, y + this.height);
 		
 		if(this.hovered) 
 		{
-			RenderUtil.renderRect(x + 2, y, x + (int)this.renderWidth, y + this.height, c2);
+			RenderUtil.setColor(this.sliderColor);
+			RenderUtil.renderRect(x + 2, y, x + (int)this.renderWidth, y + this.height);
 		}
-		RenderUtil.renderRect(x, y, x + 2, y + this.height, c1);
+		
 		RenderUtil.endRenderRect();
 		
 		GL11.glPushMatrix();
@@ -72,13 +66,13 @@ public class SliderButton extends Component
 				this.setting.getName() + " ", 
 				(parent.parent.getX() * 1.333333333333f + 9), 
 				(parent.parent.getY() + offset + 2) * 1.33333333333333f + 2, 
-				-1);
+				this.textColorInt);
 		
 		FontUtil.drawStringWithShadow(
 				displaValue, 
 				(x + width) * 1.3333333333f - FontUtil.getStringWidth(displaValue), 
 				(y + 2)     * 1.3333333333f + 2,
-				-1);
+				this.textColorInt);
 		
 
 		GL11.glPopMatrix();
@@ -97,12 +91,14 @@ public class SliderButton extends Component
 		this.y = parent.parent.getY() + offset;
 		this.x = parent.parent.getX();
 		
-		double diff = Math.min(88, Math.max(0, mouseX - this.x));
+		int width = this.parent.parent.getWidth();
+		
+		double diff = Math.min(width, Math.max(0, mouseX - this.x));
 
 		double min = this.setting.getMinValue();
 		double max = this.setting.getMaxValue();
 		
-		renderWidth = (this.parent.parent.width) * (this.setting.getValue() - min) / (max - min);
+		this.renderWidth = (this.parent.parent.width) * (this.setting.getValue() - min) / (max - min);
 		
 		if (!dragging)
 			return;
@@ -113,20 +109,10 @@ public class SliderButton extends Component
 		}
 		else 
 		{
-			double newValue = roundToPlace(((diff / 88) * (max - min) + min), 2);
+			double newValue = (diff / width) * (max - min) + min;
 			this.setting.setValue(newValue);
 		}
 	}
-	
-	private static double roundToPlace(double value, int places) 
-	{
-        if (places < 0) {
-            throw new IllegalArgumentException();
-        }
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
 	
 	@Override
 	public void mouseClicked(int mouseX, int mouseY, int button) 
@@ -154,15 +140,15 @@ public class SliderButton extends Component
 	public boolean isMouseOnButtonD(int x, int y) 
 	{
 		return x > this.x && 
-			   x < this.x + (parent.parent.getWidth() / 2 + 1) &&
+			   x < this.x + (this.width / 2 + 1) &&
 			   y > this.y && 
 			   y < this.y + this.height;
 	}
 	
 	public boolean isMouseOnButtonI(int x, int y) 
 	{
-		return x > this.x + parent.parent.getWidth() / 2 && 
-			   x < this.x + parent.parent.getWidth() &&
+		return x > this.x + this.width / 2 && 
+			   x < this.x + this.width &&
 			   y > this.y && 
 			   y < this.y + this.height;
 	}

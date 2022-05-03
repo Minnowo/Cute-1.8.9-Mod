@@ -314,8 +314,13 @@ public class ProjectileTracer extends Module
 		
 		GL11.glPushMatrix();
 		
-		
-		if(!hitEntity && renderTargetBlock.getValue() && landingPosition != null) 
+
+		if(hitEntity)
+		{
+			// entity has been hit so swap to red color 
+			ESPUtil.setColor(new Color(255, 0, 0, 150));			
+		}
+		else if (renderTargetBlock.getValue() && landingPosition != null)
 		{
 			// translate graphics for the block render
 			GL11.glTranslated(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ);
@@ -327,25 +332,20 @@ public class ProjectileTracer extends Module
 	        
 			GL11.glEnd();
 		}
-		else 
+		
+		if (landingPosition != null) 
 		{
 			GL11.glTranslated(posX - renderManager.viewerPosX, posY - renderManager.viewerPosY, posZ - renderManager.viewerPosZ);
 			
-			if (landingPosition != null) 
+			// Switch rotation of hit cylinder of the hit axis
+			switch (landingPosition.sideHit.getAxis().ordinal()) 
 			{
-				// Switch rotation of hit cylinder of the hit axis
-				switch (landingPosition.sideHit.getAxis().ordinal()) 
-				{
-					case 0:
-						GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-						break;
-					case 2:
-						GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-						break;
-				}
-				
-				// entity has been hit so swap to red color 
-				ESPUtil.setColor(new Color(255, 0, 0, 150));
+				case 0:
+					GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
+					break;
+				case 2:
+					GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+					break;
 			}
 			
 			// Rendering hit cylinder
@@ -355,6 +355,9 @@ public class ProjectileTracer extends Module
 			cylinder.setDrawStyle(100011);
 			cylinder.draw(0.2F, 0.0F, 0.0F, 60, 1);
 		}
+			
+		
+
 		// Close Open-GL drawing process
 		GL11.glPopMatrix();
 		GL11.glDepthMask(true);

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import alice.cute.managers.ModuleManager;
 import alice.cute.module.*;
 import alice.cute.ui.components.Button;
 import alice.cute.ui.components.Component;
@@ -27,6 +28,7 @@ public class ClickUI extends GuiScreen
 	
 	public static ArrayList<Frame> frames;
 
+	public int closeOnKey = 1;
 
 	public ClickUI() 
 	{
@@ -36,6 +38,9 @@ public class ClickUI extends GuiScreen
 		
 		for(Category category : Category.values()) 
 		{
+			if(ModuleManager.getModulesInCategory(category).size() == 0)
+				continue;
+			
 			Frame frame = new Frame(category);
 			
 			frame.setX(frameX);
@@ -49,14 +54,7 @@ public class ClickUI extends GuiScreen
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) 
 	{
-//		boolean blur = Hydrogen.getClient().settingsManager.getSettingByName("Blur").isEnabled();
-		
 		drawRect(0, 0, this.width, this.height, 0x66101010);
-		
-//		if (blur) 
-//		{
-//			BlurUtil.blurAll(0.1f);
-//		}
 		
 		for (Frame frame : frames) 
 		{
@@ -120,7 +118,7 @@ public class ClickUI extends GuiScreen
 			}
 		}
 		
-		if (keyCode == 1) 
+		if (keyCode == 1 || keyCode == this.closeOnKey) 
 		{
             this.mc.displayGuiScreen(null);
         }

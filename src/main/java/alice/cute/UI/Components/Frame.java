@@ -103,8 +103,8 @@ public class Frame
 	public void renderFrame(FontRenderer fontRenderer) 
 	{
 		
-		
-		RenderUtil.renderRectSingle(this.x - 2, this.y - 2, this.x + this.width + 2, this.y + this.barHeight, this.color);
+		RenderUtil.setColor(this.color);
+		RenderUtil.renderRectSingle(this.x - 2, this.y - 2, this.x + this.width + 2, this.y + this.barHeight);
 		
 		FontUtil.drawTotalCenteredStringWithShadowMC(this.category.name(), (this.x + this.width / 2), (this.y + 7) - 1, -1);
 

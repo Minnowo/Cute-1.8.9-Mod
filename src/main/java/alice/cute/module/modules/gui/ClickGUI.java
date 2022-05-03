@@ -22,6 +22,7 @@ public class ClickGUI extends Module
         if(this.clickUI == null) 
         {
             this.clickUI = new ClickUI();
+            this.clickUI.closeOnKey = this.getKeybind().getKeyCode();
         }
         
         mc.displayGuiScreen(this.clickUI);
