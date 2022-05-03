@@ -1,4 +1,4 @@
-package alice.cute.ui.components;
+package alice.cute.gui.components;
 
 import java.awt.Color;
 import java.util.ArrayList;

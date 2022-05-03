@@ -1,4 +1,4 @@
-package alice.cute.ui.components;
+package alice.cute.gui.components;
 
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 //import me.peanut.hydrogen.module.modules.gui.ClickGUI;
 
 import alice.cute.module.*;
-import alice.cute.ui.ClickUI;
+import alice.cute.gui.ClickUI;
 import alice.cute.managers.ModuleManager;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
