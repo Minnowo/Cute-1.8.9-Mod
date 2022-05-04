@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import alice.cute.gui.ClickUI;
 import alice.cute.gui.components.sub.CheckboxButton;
 import alice.cute.gui.components.sub.ColorPickerButton;
+import alice.cute.gui.components.sub.DropDownButton;
 import alice.cute.gui.components.sub.KeybindButton;
 import alice.cute.gui.components.sub.ModeButton;
 import alice.cute.gui.components.sub.SliderButton;
@@ -15,6 +16,7 @@ import alice.cute.setting.ColorPicker;
 import alice.cute.setting.Mode;
 import alice.cute.setting.Setting;
 import alice.cute.setting.Slider;
+import alice.cute.setting.ListSelection;
 import alice.cute.setting.SubSetting;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
@@ -47,7 +49,11 @@ public class Button extends Component
 				default:
 					System.out.println(s.getName());
 					continue;
-					
+				case LIST:
+					last = new DropDownButton((ListSelection)s, this, opY);
+					this.subcomponents.add(last);
+					opY += this.height;
+					break;
 				case CHECKBOX:
 					last = new CheckboxButton((Checkbox)s, this, opY);
 					this.subcomponents.add(last);

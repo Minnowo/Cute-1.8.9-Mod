@@ -68,61 +68,64 @@ public class ColorPickerButton extends Component
 	@Override
 	public void renderComponent() 
 	{
-		String displaValue = String.valueOf(this.setting.getRed());
-		
+		// the offset off the top where the preview color is rendered 
 		int previewOffset = this.previewColorHeight + dist;
 		
+		// background
 		RenderUtil.beginRenderRect();
-		
-//		background 
 		RenderUtil.setColor(this.backColor);
 		RenderUtil.renderRect(x + 2, y, x + width, y + this.getHeight());
 		
-//		preview color 
+		// preview color 
 		RenderUtil.setColor(this.setting.getColor());
 		RenderUtil.renderRect(x + 2, y, x + this.width, y + this.previewColorHeight);
 		
-//		red slider 
+		// red slider 
 		RenderUtil.setColor(this.red);
 		RenderUtil.renderRect(x + 2, y + previewOffset, x + (int)this.redWidth, y + this.height + this.previewColorHeight );
 		
-//		green slider 
+		// green slider 
 		RenderUtil.setColor(this.green);
 		RenderUtil.renderRect(x + 2, y + previewOffset + this.height, x + (int)this.greenWidth, y + this.height * 2 + this.previewColorHeight);
 		
-//		blue slider 
+		// blue slider 
 		RenderUtil.setColor(this.blue);
 		RenderUtil.renderRect(x + 2, y + previewOffset + this.height * 2, x + (int)this.blueWidth, y + this.height * 3 + this.previewColorHeight);
-	
 		RenderUtil.endRenderRect();
 		
+		
+		// scale the text
 		GL11.glPushMatrix();
 		GL11.glScalef(0.75f,0.75f, 0.75f);
 		
+		// red value
+		String displaValue = String.valueOf(this.setting.getRed());
+		
 		FontUtil.drawStringWithShadow(
 				displaValue + " ", 
-				(this.x * 1.333333333333f + 4), 
-				(this.y + previewOffset + 1) * 1.33333333333333f + 2, 
+				(this.x                ) * this.tScale + 4, 
+				(this.y + previewOffset) * this.tScale + 3, 
 				this.textColorInt);
 		
+		// green value
 		displaValue =  String.valueOf(this.setting.getGreen());
 		
 		FontUtil.drawStringWithShadow(
 				displaValue + " ", 
-				(this.x * 1.333333333333f + 4), 
-				(this.y + previewOffset + this.height + 1) * 1.33333333333333f + 2, 
+				(this.x                              ) * this.tScale + 4, 
+				(this.y + previewOffset + this.height) * this.tScale + 3, 
 				this.textColorInt);
 		
+		// blue value 
 		displaValue =  String.valueOf(this.setting.getBlue());
 		
 		FontUtil.drawStringWithShadow(
 				displaValue + " ", 
-				(this.x * 1.333333333333f + 4), 
-				(this.y + previewOffset + this.height * 2 + 1) * 1.33333333333333f + 2, 
+				(this.x                                  ) * this.tScale + 4, 
+				(this.y + previewOffset + this.height * 2) * this.tScale + 3, 
 				this.textColorInt);
 		
 		GL11.glPopMatrix();
-		
 	}
 	
 

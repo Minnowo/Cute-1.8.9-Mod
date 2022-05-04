@@ -1,5 +1,7 @@
 package alice.cute.setting;
 
+import alice.cute.setting.enums.SettingType;
+
 public class Keybind extends Setting
 {
 	    private int _key;

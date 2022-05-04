@@ -1,5 +1,7 @@
 package alice.cute.setting;
 
+import alice.cute.setting.enums.SettingType;
+
 public class Checkbox extends Setting 
 {
 	private boolean _checked;

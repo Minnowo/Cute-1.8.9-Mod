@@ -1,13 +1,17 @@
 package alice.cute.module.modules.render;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.lwjgl.opengl.GL11;
 
 import alice.cute.module.Category;
 import alice.cute.module.Module;
 import alice.cute.setting.Checkbox;
+import alice.cute.setting.ListSelection;
 import alice.cute.setting.Slider;
+import alice.cute.setting.enums.ListType;
 import alice.cute.util.RenderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -30,6 +34,7 @@ public class BlockESP extends Module
 		super("Block ESP", Category.RENDER, "Highlights blocks");
 	}
 	
+	public static ListSelection blocks = new ListSelection<Block>("Blocks", new ArrayList<Block>(), ListType.BLOCK);
 	public static Checkbox IntervalRefresh = new Checkbox("Auto Refresh", false);
 	public static Slider lineWidth         = new Slider("Line Width", 0.1D, 2.5D, 5.0D, 1);
 	public static Slider RefreshInterval   = new Slider("Refresh", 1.0D, 30D, 500D, 1);
@@ -43,6 +48,7 @@ public class BlockESP extends Module
 	@Override
     public void setup() 
 	{
+		addSetting(blocks);
         addSetting(IntervalRefresh);
         addSetting(RefreshInterval);
         addSetting(SearchRadiusX);

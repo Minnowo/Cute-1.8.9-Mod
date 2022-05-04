@@ -30,6 +30,7 @@ public class Component
 	protected Color green = new Color(0, 240, 0);
 	protected Color blue = new Color(0, 0, 240);
 	
+	public static final float tScale = 1.33333333333333f;
 	
 	public boolean isOpen()
 	{

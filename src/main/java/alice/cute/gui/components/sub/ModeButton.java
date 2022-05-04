@@ -51,27 +51,35 @@ public class ModeButton extends Component {
 	@Override
 	public void renderComponent() 
 	{
+		// render the background 
 		RenderUtil.beginRenderRect();
 		RenderUtil.setColor(this.backColor);
 		RenderUtil.renderRect(x, y, x + width, y + this.height);
 		RenderUtil.renderRect(x, y, x + 2    , y + 12         );
 		RenderUtil.endRenderRect();
 		
-//		this makes the text rendered below fit in the box
+		// scale the text 
 		GL11.glPushMatrix();
 		GL11.glScalef(0.75f,0.75f, 0.75f);
 
+		
+		// render the setting name
+		String modeText = this.setting.getName();
+
 		FontUtil.drawStringWithShadow(
-				this.setting.getName(), 
-				(x + 3) * 1.3333333333f + 5, 
-				(y + 2) * 1.3333333333f + 2,
-				-1);
+				modeText, 
+				(this.x + 3) * this.tScale + 4, 
+				(this.y + 2) * this.tScale + 2,
+				this.textColorInt);
+		
+		// render the setting value
+		modeText = this.setting.getMode();
 		
 		FontUtil.drawStringWithShadow(
-				this.setting.getMode(), 
-				(x + this.parent.parent.getWidth()) * 1.3333333333f - FontUtil.getStringWidth(this.setting.getMode()), //- FontHelper.verdana.getStringWidth(set.getMode()), 
-				(y + 2) * 1.3333333333f + 2,
-				-1);
+				modeText, 
+				(this.x + this.width) * this.tScale - FontUtil.getStringWidth(modeText), 
+				(this.y + 2         ) * this.tScale + 2,
+				this.textColorInt);
 		
 		
 		GL11.glPopMatrix();

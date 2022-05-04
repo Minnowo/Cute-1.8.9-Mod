@@ -32,6 +32,6 @@ public class ClickGUI extends Module
     public void onDisable()
     {
 //    	this is for debug 
-//    	this.clickUI = null;
+    	this.clickUI = null;
     }
 }

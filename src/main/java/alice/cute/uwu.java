@@ -16,6 +16,7 @@ import org.lwjgl.input.Keyboard;
 import alice.cute.managers.ConfigManagerJSON;
 import alice.cute.managers.ModuleManager;
 import alice.cute.module.Module;
+import alice.cute.module.modules.render.BlockESP;
 import alice.cute.module.modules.render.VirtualBlock;
 import alice.cute.proxy.*;
 import alice.cute.util.Util;
@@ -59,6 +60,7 @@ public class uwu
 	{
 		proxy.init(event);
 		
+		Cache.loadAllCache();
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
 		{
@@ -73,6 +75,11 @@ public class uwu
 		ConfigManagerJSON.loadConfig();
 		
 		VirtualBlock.setStandardList();
+		
+		for(VirtualBlock vb : VirtualBlock.Blocks)
+		{
+			BlockESP.blocks.enableItem(vb.block);
+		}
 		
 		// click gui
 		moduleManager.modules.get(0).setKeyCode(Keyboard.KEY_RSHIFT);

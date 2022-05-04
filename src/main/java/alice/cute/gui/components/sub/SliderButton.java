@@ -60,37 +60,45 @@ public class SliderButton extends Component
 	
 	@Override
 	public void renderComponent() 
-	{
-		String displaValue = String.valueOf(Util.roundToPlace(this.setting.getValue(), 2));
-		
+	{		
+		// render the background 
 		RenderUtil.beginRenderRect();
 		RenderUtil.setColor(this.backColor);
 		RenderUtil.renderRect(x + 2, y, x + width, y + this.height);
 		RenderUtil.renderRect(x, y, x + 2, y + this.height);
+		
+		// render the slider 
 		RenderUtil.setColor(this.sliderColor);
 		RenderUtil.renderRect(x + 2, y, x + (int)this.renderWidth, y + this.height);
 		
+		// render the slider again if hovered (alpha adds up so it's brighter)
 		if(this.hovered) 
 		{
-			RenderUtil.setColor(this.sliderColor);
 			RenderUtil.renderRect(x + 2, y, x + (int)this.renderWidth, y + this.height);
 		}
 		
 		RenderUtil.endRenderRect();
 		
+		// scale the text
 		GL11.glPushMatrix();
 		GL11.glScalef(0.75f,0.75f, 0.75f);
 		
-		FontUtil.drawStringWithShadow(
-				this.setting.getName() + " ", 
-				(x * 1.333333333333f + 9), 
-				(y + 2) * 1.33333333333333f + 2, 
-				this.textColorInt);
+		// render the name
+		String displayValue = this.setting.getName() + " ";
 		
 		FontUtil.drawStringWithShadow(
-				displaValue, 
-				(x + width) * 1.3333333333f - FontUtil.getStringWidth(displaValue), 
-				(y + 2)     * 1.3333333333f + 2,
+				displayValue, 
+				(this.x + 3) * this.tScale + 4, 
+				(this.y + 2) * this.tScale + 2, 
+				this.textColorInt);
+		
+		// render the value
+		displayValue = String.valueOf(Util.roundToPlace(this.setting.getValue(), 2));
+		
+		FontUtil.drawStringWithShadow(
+				displayValue, 
+				(this.x + this.width) * this.tScale - FontUtil.getStringWidth(displayValue), 
+				(this.y + 2)          * this.tScale + 2,
 				this.textColorInt);
 		
 

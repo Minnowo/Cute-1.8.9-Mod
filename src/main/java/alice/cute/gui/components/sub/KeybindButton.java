@@ -50,29 +50,33 @@ public class KeybindButton extends Component
 	@Override
 	public void renderComponent() 
 	{
-		String bindingText = this.binding ? "Binding. Unbind: RMB" : "Keybind";
-		
+		// render the background 
 		RenderUtil.beginRenderRect();
 		RenderUtil.setColor(this.backColor);
 		RenderUtil.renderRect(this.x + 2, this.y, this.x + this.width, this.y + this.height);
 		RenderUtil.renderRect(this.x    , this.y, this.x + 2         , this.y + this.height);
 		RenderUtil.endRenderRect();
 		
+		// scale the text
 		GL11.glPushMatrix();
 		GL11.glScalef(0.75f,0.75f, 0.75f);
 
+		// render the left side of the text
+		String bindingText = this.binding ? "Binding. Unbind: RMB" : "Keybind";
+		
 		FontUtil.drawStringWithShadow(
 				bindingText, 
-				(parent.parent.getX() * 1.333333333333f + 9), 
-				(parent.parent.getY() + offset + 2) * 1.33333333333333f + 2, 
+				(this.x + 3) * this.tScale + 4, 
+				(this.y + 2) * this.tScale + 2, 
 				this.textColorInt);
 		
+		// render the right side of the text 
 		bindingText = binding ? "" : Keyboard.getKeyName(this.parent.mod.getKeybind().getKeyCode());
 		
 		FontUtil.drawStringWithShadow(
 				bindingText, 
-				(x + width) * 1.3333333333f - FontUtil.getStringWidth(bindingText), 
-				(y + 2)     * 1.3333333333f + 2,
+				(this.x + width) * this.tScale - FontUtil.getStringWidth(bindingText), 
+				(this.y + 2)     * this.tScale + 2,
 				this.textColorInt);
 		
 

@@ -34,17 +34,18 @@ public class CheckboxButton extends Component
 
 	@Override
 	public void renderComponent() 
-	{
-		int width = this.parent.parent.getWidth();
-		
+	{		
+		// background 
 		RenderUtil.beginRenderRect();
 		RenderUtil.setColor(this.backColor);
-		RenderUtil.renderRect(x, y, x + width , y + this.height);
-		RenderUtil.renderRect(x, y, x + 2     , y + this.height);
+		RenderUtil.renderRect(x + 2, y, x + width, y + this.getHeight());
+		RenderUtil.renderRect(x    , y, x + 2    , y + this.getHeight());
 
+		// background of the checkbox 
 		RenderUtil.setColor(this.backColor);
 		RenderUtil.renderRect(x + width - 8, y + 3, x + width - 2, y + 9);
 		
+		// the check of the checkbox 
 		if(this.setting.getValue()) 
 		{
 			RenderUtil.setColor(this.textColor);
@@ -54,23 +55,21 @@ public class CheckboxButton extends Component
 		RenderUtil.endRenderRect();
 		
 		
-//		this makes the text rendered below fit in the box
+		// scale the text
 		GL11.glPushMatrix();
 		GL11.glScalef(0.75f,0.75f, 0.75f);
 
+		// render the text
 		FontUtil.drawStringWithShadow(
 				this.setting.getName(), 
-				(x + 3) * 1.3333333333f + 5, 
-				(y + 2) * 1.3333333333f + 2,
+				(x + 3) * this.tScale + 4, 
+				(y + 2) * this.tScale + 2,
 				this.textColorInt);
 		
 		GL11.glPopMatrix();
 		
-		
-		if(!this.open)
-			return;
-		
-		if (this.subcomponents.isEmpty())
+		// this is where the color picker controls get their render event 
+		if(!this.open || this.subcomponents.isEmpty())
 			return;
 	
 		for (Component comp : this.subcomponents) 

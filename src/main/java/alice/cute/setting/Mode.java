@@ -3,6 +3,8 @@ package alice.cute.setting;
 import java.util.ArrayList;
 import java.util.List;
 
+import alice.cute.setting.enums.SettingType;
+
 public class Mode extends Setting
 {
 	private String[] _modes;

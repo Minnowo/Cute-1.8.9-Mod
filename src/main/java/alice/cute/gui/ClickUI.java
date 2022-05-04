@@ -39,7 +39,7 @@ public class ClickUI extends GuiScreen
 			frames.add(frame);
 			
 			frameX += frame.getWidth() + 1;
-		}
+		}		
 	}
 
 	@Override

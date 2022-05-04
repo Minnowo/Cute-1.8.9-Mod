@@ -1,5 +1,7 @@
 package alice.cute.setting;
 
+import alice.cute.setting.enums.SettingType;
+
 public class Slider extends Setting
 {
 	private double _min;

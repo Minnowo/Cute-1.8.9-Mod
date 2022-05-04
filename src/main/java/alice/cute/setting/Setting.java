@@ -3,6 +3,8 @@ package alice.cute.setting;
 import java.util.ArrayList;
 import java.util.List;
 
+import alice.cute.setting.enums.SettingType;
+
 public class Setting
 {
 	protected String _name;
