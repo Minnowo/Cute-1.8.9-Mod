@@ -5,23 +5,18 @@ import java.awt.Color;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
 
-import alice.cute.module.Module;
 import alice.cute.module.Category;
+import alice.cute.module.Module;
 import alice.cute.setting.Checkbox;
 import alice.cute.setting.ColorPicker;
 import alice.cute.setting.Slider;
-import alice.cute.util.render.ESPUtil;
-import alice.cute.util.world.EntityUtil;
-
-import net.minecraft.client.renderer.Tessellator;
+import alice.cute.util.EntityUtil;
+import alice.cute.util.RenderUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -132,7 +127,7 @@ public class Tracers extends Module
         	{
         		if(players.getValue() && entity.getName() != this.mc.thePlayer.getName()) 
         		{
-        			ESPUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), playerPicker.getColor());
+        			RenderUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), playerPicker.getColor());
         		}
         		continue;
         	}
@@ -141,7 +136,7 @@ public class Tracers extends Module
         	{
         		if(items.getValue()) 
         		{
-        			ESPUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), itemsPicker.getColor());
+        			RenderUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), itemsPicker.getColor());
         		}
         		continue;
         	}
@@ -150,7 +145,7 @@ public class Tracers extends Module
         	{
         		if(mobs.getValue()) 
         		{
-        			ESPUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), mobsPicker.getColor());
+        			RenderUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), mobsPicker.getColor());
         		}
         		continue;
         	}
@@ -159,7 +154,7 @@ public class Tracers extends Module
         	{
         		if(animals.getValue()) 
         		{
-        			ESPUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), animalPicker.getColor());
+        			RenderUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), animalPicker.getColor());
         		}
         		continue;
         	}
@@ -168,7 +163,7 @@ public class Tracers extends Module
         	{
         		if(neutral.getValue()) 
         		{
-        			ESPUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), neutralPicker.getColor());
+        			RenderUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), neutralPicker.getColor());
         		}
         		continue;
         	}        	
@@ -177,7 +172,7 @@ public class Tracers extends Module
         	{
         		if(vehicles.getValue()) 
         		{
-        			ESPUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), vehiclesPicker.getColor());
+        			RenderUtil.renderTracer(mx, my, mz, entity, horizontalRadius.getValue(), verticalRadius.getValue(), vehiclesPicker.getColor());
         		}
         	}			
 		}

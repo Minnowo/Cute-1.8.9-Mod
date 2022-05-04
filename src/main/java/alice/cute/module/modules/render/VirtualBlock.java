@@ -43,6 +43,24 @@ public class VirtualBlock
 		this.location = new ResourceLocation(id);
 	}
 	
+
+	public static void setStandardList() 
+	{
+		Blocks.clear();
+		
+		
+		insertBlock(new VirtualBlock(0, 0, 128, 200, -1, "minecraft:lapis_ore", true));
+		insertBlock(new VirtualBlock(255, 0, 0, 200, -1, "minecraft:redstone_ore", true));
+		insertBlock(new VirtualBlock(255, 255, 0, 200, -1, "minecraft:gold_ore", true));
+		insertBlock(new VirtualBlock(0, 255, 0, 200, -1, "minecraft:emerald_ore", true));
+		insertBlock(new VirtualBlock(0, 191, 255, 200, -1, "minecraft:diamond_ore", true));
+		insertBlock(new VirtualBlock(0, 191, 128, 0, -1, "minecraft:coal_ore", true));
+		insertBlock(new VirtualBlock(0, 200, 128, 0, -1, "minecraft:iron_ore", true));
+		removeInvalidBlocks();
+	}
+	
+	
+	
 	private static void insertBlock(VirtualBlock vb) 
 	{
 		for(int i = 0; i < VirtualBlock.Blocks.size(); i++) 

@@ -1,11 +1,9 @@
 package alice.cute.module.modules.gui;
 
 
-import alice.cute.module.Module;
-import alice.cute.setting.Mode;
-import alice.cute.module.Category;
 import alice.cute.gui.ClickUI;
-import alice.cute.util.Util;
+import alice.cute.module.Category;
+import alice.cute.module.Module;
 
 public class ClickGUI extends Module
 {

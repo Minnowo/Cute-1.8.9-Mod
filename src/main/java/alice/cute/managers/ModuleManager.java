@@ -6,19 +6,17 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
-import alice.cute.module.Module;
 import alice.cute.module.Category;
-import alice.cute.module.modules.misc.*;
-import alice.cute.module.modules.render.*;
-import alice.cute.module.modules.gui.*;
-import alice.cute.util.IMixin;
-import alice.cute.util.Util;
-import alice.cute.module.modules.*;
-
+import alice.cute.module.Module;
+import alice.cute.module.modules.gui.ClickGUI;
+import alice.cute.module.modules.misc.AntiPotion;
+import alice.cute.module.modules.render.BlockESP;
+import alice.cute.module.modules.render.EntityESP;
+import alice.cute.module.modules.render.Fullbright;
+import alice.cute.module.modules.render.NoRender;
+import alice.cute.module.modules.render.ProjectileTracer;
+import alice.cute.module.modules.render.Tracers;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,10 +24,9 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.Int;
 
 
-public class ModuleManager implements IMixin
+public class ModuleManager extends ManagerBase
 {	
 	public ModuleManager() 
 	{
