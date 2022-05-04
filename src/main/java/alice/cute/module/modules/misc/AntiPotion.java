@@ -3,8 +3,8 @@ package alice.cute.module.modules.misc;
 import java.util.Arrays;
 import java.util.List;
 
-import alice.cute.module.Module;
 import alice.cute.module.Category;
+import alice.cute.module.Module;
 import net.minecraft.potion.Potion;
 
 public class AntiPotion extends Module 

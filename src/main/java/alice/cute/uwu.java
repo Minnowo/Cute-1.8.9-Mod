@@ -58,7 +58,7 @@ public class uwu
 	public void init(FMLInitializationEvent event) 
 	{
 		proxy.init(event);
-//		VirtualBlock.setStandardList();
+		
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
 		{
@@ -72,7 +72,9 @@ public class uwu
 		moduleManager = new ModuleManager();
 		ConfigManagerJSON.loadConfig();
 		
-//		entity esp 
+		VirtualBlock.setStandardList();
+		
+		// click gui
 		moduleManager.modules.get(0).setKeyCode(Keyboard.KEY_RSHIFT);
 	}
 	

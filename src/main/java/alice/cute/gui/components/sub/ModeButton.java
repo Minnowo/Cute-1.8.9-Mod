@@ -1,27 +1,13 @@
 package alice.cute.gui.components.sub;
 
-//import me.peanut.hydrogen.module.Module;
-//import me.peanut.hydrogen.font.FontHelper;
-//import me.peanut.hydrogen.Hydrogen;
-//import me.peanut.hydrogen.ui.clickgui.component.Component;
-//import me.peanut.hydrogen.ui.clickgui.component.components.Button;
-//import me.peanut.hydrogen.settings.Setting;
-
-import alice.cute.gui.components.Component;
-import alice.cute.gui.components.Button;
-import alice.cute.util.FontUtil;
-import alice.cute.util.RenderUtil;
-import alice.cute.setting.Mode;
-import alice.cute.setting.Setting;
-import alice.cute.module.Module;
-
-
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import alice.cute.gui.components.Button;
 
-import java.awt.*;
+import alice.cute.gui.components.Component;
+import alice.cute.setting.Mode;
+import alice.cute.util.FontUtil;
+import alice.cute.util.RenderUtil;
 
 public class ModeButton extends Component {
 

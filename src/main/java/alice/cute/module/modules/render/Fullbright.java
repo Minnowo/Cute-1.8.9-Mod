@@ -1,12 +1,9 @@
 package alice.cute.module.modules.render;
 
+import alice.cute.module.Category;
 import alice.cute.module.Module;
 import alice.cute.setting.Mode;
-import alice.cute.module.Category;
-import alice.cute.util.Util;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 

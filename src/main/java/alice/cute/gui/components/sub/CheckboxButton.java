@@ -1,19 +1,15 @@
 package alice.cute.gui.components.sub;
 
 
-import alice.cute.setting.Checkbox;
-import alice.cute.gui.components.Button;
-import alice.cute.gui.components.Component;
-import alice.cute.util.FontUtil;
-import alice.cute.util.RenderUtil;
+import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-
-import java.awt.*;
-import java.util.ArrayList;
+import alice.cute.gui.components.Button;
+import alice.cute.gui.components.Component;
+import alice.cute.setting.Checkbox;
+import alice.cute.util.FontUtil;
+import alice.cute.util.RenderUtil;
 
 public class CheckboxButton extends Component 
 {

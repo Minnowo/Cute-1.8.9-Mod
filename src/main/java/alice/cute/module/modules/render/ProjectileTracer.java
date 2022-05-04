@@ -5,18 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL32;
 import org.lwjgl.util.glu.Cylinder;
 
-import alice.cute.module.Module;
 import alice.cute.module.Category;
+import alice.cute.module.Module;
 import alice.cute.setting.Checkbox;
 import alice.cute.setting.ColorPicker;
 import alice.cute.setting.Slider;
-import alice.cute.util.Util;
-import alice.cute.util.render.ESPUtil;
-import alice.cute.util.world.EntityUtil;
-import net.minecraft.block.Block;
+import alice.cute.util.RenderUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -26,9 +22,6 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemEgg;
@@ -184,7 +177,7 @@ public class ProjectileTracer extends Module
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
 		
-		ESPUtil.setColor(tracerColor);
+		RenderUtil.setColor(tracerColor);
 		GL11.glLineWidth((float)lineWidth.getValue());
 		
 		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
@@ -318,7 +311,7 @@ public class ProjectileTracer extends Module
 		if(hitEntity)
 		{
 			// entity has been hit so swap to red color 
-			ESPUtil.setColor(new Color(255, 0, 0, 150));			
+			RenderUtil.setColor(new Color(255, 0, 0, 150));			
 		}
 		else if (renderTargetBlock.getValue() && landingPosition != null)
 		{
@@ -328,7 +321,7 @@ public class ProjectileTracer extends Module
 			
 	        // landing block position 
 	        BlockPos bp = landingPosition.getBlockPos();
-	        ESPUtil.renderBlock(bp.getX(), bp.getY(), bp.getZ(), tracerColor);
+	        RenderUtil.renderBlock(bp.getX(), bp.getY(), bp.getZ(), tracerColor);
 	        
 			GL11.glEnd();
 		}

@@ -1,22 +1,15 @@
 package alice.cute.gui.components;
 
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
-//import me.peanut.hydrogen.module.Category;
-//import me.peanut.hydrogen.module.Module;
-//import me.peanut.hydrogen.ui.clickgui.component.components.Button;
-//import me.peanut.hydrogen.font.FontUtil;
-//import me.peanut.hydrogen.utils.RenderUtil;
-//import me.peanut.hydrogen.Hydrogen;
-//import me.peanut.hydrogen.module.modules.gui.ClickGUI;
-
-import alice.cute.module.*;
-import alice.cute.gui.ClickUI;
 import alice.cute.managers.ModuleManager;
+import alice.cute.module.Category;
+import alice.cute.module.Module;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
+
 import net.minecraft.client.gui.FontRenderer;
 
 public class Frame 

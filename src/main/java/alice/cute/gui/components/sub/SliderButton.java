@@ -1,21 +1,16 @@
 package alice.cute.gui.components.sub;
 
 
-import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import alice.cute.setting.Setting;
-import alice.cute.setting.Slider;
+import org.lwjgl.opengl.GL11;
+
 import alice.cute.gui.components.Button;
 import alice.cute.gui.components.Component;
+import alice.cute.setting.Slider;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
 import alice.cute.util.Util;
-
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.Minecraft;
 
 public class SliderButton extends Component 
 {

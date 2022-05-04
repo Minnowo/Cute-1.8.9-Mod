@@ -2,24 +2,15 @@ package alice.cute.gui;
 
 
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
-import alice.cute.managers.ModuleManager;
-import alice.cute.module.*;
-import alice.cute.gui.components.Button;
 import alice.cute.gui.components.Component;
 import alice.cute.gui.components.Frame;
-import net.minecraft.client.Minecraft;
-
+import alice.cute.managers.ModuleManager;
+import alice.cute.module.Category;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.shader.ShaderGroup;
-import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.input.Mouse;
 
 
 public class ClickUI extends GuiScreen 

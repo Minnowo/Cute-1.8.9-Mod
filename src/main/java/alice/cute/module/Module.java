@@ -1,6 +1,5 @@
 package alice.cute.module;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +8,15 @@ import javax.annotation.Nullable;
 import org.lwjgl.input.Keyboard;
 
 import alice.cute.Reference;
-import alice.cute.uwu;
 import alice.cute.setting.Setting;
-import alice.cute.util.IMixin;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 
-public class Module implements IMixin
+public class Module
 {
+	protected Minecraft mc = Minecraft.getMinecraft();
+	
 	protected String     _name;
 	protected Category   _category;
 	protected String     _description;

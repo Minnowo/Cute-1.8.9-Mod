@@ -2,42 +2,20 @@ package alice.cute.module.modules.render;
 
 import java.awt.Color;
 
-import org.lwjgl.opengl.GL11;
-
-import alice.cute.module.Module;
 import alice.cute.module.Category;
+import alice.cute.module.Module;
 import alice.cute.setting.Checkbox;
 import alice.cute.setting.ColorPicker;
 import alice.cute.setting.Mode;
 import alice.cute.setting.Slider;
-import alice.cute.util.Util;
-import alice.cute.util.render.ESPUtil;
-import alice.cute.util.world.EntityUtil;
-
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelZombie;
-
-import net.minecraft.client.Minecraft;
+import alice.cute.util.EntityUtil;
+import alice.cute.util.RenderUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntityGolem;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.passive.EntityVillager;
-
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.passive.EntityAmbientCreature;
-
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -99,7 +77,7 @@ public class EntityESP extends Module
 		if(nullCheck())
 			return;
 		
-		ESPUtil.beginRenderHitbox((float)lineWidth.getValue());
+		RenderUtil.beginRenderHitbox((float)lineWidth.getValue());
 
         for(Entity entity : this.mc.theWorld.loadedEntityList) 
 		{
@@ -111,8 +89,8 @@ public class EntityESP extends Module
         	{
         		if(players.getValue() && entity.getName() != this.mc.thePlayer.getName()) 
         		{
-        			ESPUtil.setColor(playerPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			RenderUtil.setColor(playerPicker.getColor());
+        			RenderUtil.renderEntityHitbox(entity);
         		}
         		continue;
         	}
@@ -121,8 +99,8 @@ public class EntityESP extends Module
         	{
         		if(items.getValue()) 
         		{
-        			ESPUtil.setColor(itemsPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			RenderUtil.setColor(itemsPicker.getColor());
+        			RenderUtil.renderEntityHitbox(entity);
         		}
         		continue;
         	}
@@ -131,8 +109,8 @@ public class EntityESP extends Module
         	{
         		if(mobs.getValue()) 
         		{
-        			ESPUtil.setColor(mobsPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			RenderUtil.setColor(mobsPicker.getColor());
+        			RenderUtil.renderEntityHitbox(entity);
         		}
         		continue;
         	}
@@ -141,8 +119,8 @@ public class EntityESP extends Module
         	{
         		if(animals.getValue()) 
         		{
-        			ESPUtil.setColor(animalPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			RenderUtil.setColor(animalPicker.getColor());
+        			RenderUtil.renderEntityHitbox(entity);
         		}
         		continue;
         	}
@@ -151,8 +129,8 @@ public class EntityESP extends Module
         	{
         		if(neutral.getValue()) 
         		{
-        			ESPUtil.setColor(neutralPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			RenderUtil.setColor(neutralPicker.getColor());
+        			RenderUtil.renderEntityHitbox(entity);
         		}
         		continue;
         	}        	
@@ -161,12 +139,12 @@ public class EntityESP extends Module
         	{
         		if(vehicles.getValue()) 
         		{
-        			ESPUtil.setColor(vehiclesPicker.getColor());
-        			ESPUtil.renderEntityHitbox(entity);
+        			RenderUtil.setColor(vehiclesPicker.getColor());
+        			RenderUtil.renderEntityHitbox(entity);
         		}
         	}
 		}
         
-        ESPUtil.endRenderHitbox();
+        RenderUtil.endRenderHitbox();
     }
 }

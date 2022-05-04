@@ -1,6 +1,23 @@
 package alice.cute.managers;
 
-import com.google.gson.*;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 import alice.cute.module.Module;
 import alice.cute.module.modules.render.VirtualBlock;
@@ -12,15 +29,7 @@ import alice.cute.setting.Setting;
 import alice.cute.setting.Slider;
 import alice.cute.setting.SubSetting;
 
-import net.minecraft.client.settings.KeyBinding;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.awt.Color;
-
-public class ConfigManagerJSON 
+public class ConfigManagerJSON extends ManagerBase
 {
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

@@ -10,11 +10,6 @@ import alice.cute.gui.components.Component;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-
-import java.awt.*;
-
 public class KeybindButton extends Component 
 {
 	private final Button parent;

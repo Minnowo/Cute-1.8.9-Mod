@@ -1,25 +1,13 @@
 package alice.cute.gui.components.sub;
 
 
-//https://github.com/GandyT/GandyClient-2.0/
-
-import java.awt.Color;
-
 import org.lwjgl.opengl.GL11;
 
-//import GandyClient.core.gui.GuiElement;
-//import GandyClient.core.gui.hud.ScreenPosition;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import alice.cute.setting.Checkbox;
-import alice.cute.setting.ColorPicker;
-import alice.cute.setting.Mode;
 import alice.cute.gui.components.Button;
 import alice.cute.gui.components.Component;
+import alice.cute.setting.ColorPicker;
 import alice.cute.util.FontUtil;
 import alice.cute.util.RenderUtil;
-import alice.cute.util.Util;
 
 public class ColorPickerButton extends Component 
 {
